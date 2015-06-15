@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.blacklist.start.blacklist" >
+
+    <application
+        android:name="com.activeandroid.app.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:debuggable="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="HardcodedDebugMode">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StopListActivity"
+            android:label="@string/myList2">
+        </activity>
+
+        <activity android:name=".AddNumberActivity"
+            android:label="@string/myList2">
+        </activity>
+
+        <!-- Notice this tag which provides the database name -->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="MyDB.db" />
+
+        <!-- Notice this tag which provides the database version -->
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+
+    <receiver android:name="com.android.internal.telephony.IncomingCall">
+        <intent-filter>
+            <action android:name="android.intent.action.PHONE_STATE" />
+        </intent-filter>
+    </receiver>
+
+    <receiver android:name=".SmsReceiver" android:exported="true" >
+        <intent-filter android:priority="1000">
+            <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+        </intent-filter>
+    </receiver>
+    </application>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+
+</manifest>
