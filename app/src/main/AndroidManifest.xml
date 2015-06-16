@@ -40,16 +40,17 @@
 
 
     <receiver android:name="com.android.internal.telephony.IncomingCall">
-        <intent-filter>
+        <intent-filter android:priority="1000">
             <action android:name="android.intent.action.PHONE_STATE" />
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".SmsReceiver" android:exported="true" >
-        <intent-filter android:priority="1000">
-            <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-        </intent-filter>
-    </receiver>
+        <receiver android:name="com.android.internal.telephony.SMSReceiver" >
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
