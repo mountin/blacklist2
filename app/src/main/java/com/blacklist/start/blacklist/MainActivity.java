@@ -1,7 +1,9 @@
 package com.blacklist.start.blacklist;
 
 //import android.content.Context;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +28,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //CallReceiver asd = new CallReceiver(context, intent);
+
+        startService(new Intent(this, CheckService.class));
+
         setContentView(R.layout.activity_main);
     }
 
@@ -107,5 +111,6 @@ public class MainActivity extends ActionBarActivity {
 //                    + Numbers, Toast.LENGTH_LONG).show();
 //        }
     }
+
 
 }

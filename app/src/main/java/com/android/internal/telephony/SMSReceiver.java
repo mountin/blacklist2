@@ -52,8 +52,11 @@ public class SMSReceiver extends BroadcastReceiver
 
         String msg = "New SMS Event !!!!! Incomming Number : " + sms._sender;
         Log.d("myApp", msg);
-        if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomingCall.IncommingNumber)) {
+        if (this.containsBlackListWithNumber(this.selectListFromDb(), sms._sender)) {
+            Log.d("myApp", "The message from" +sms._sender+ "has been blocked Sorry!!!");
             abortBroadcast();
+        }else{
+            Log.d("myApp", "The number " +sms._sender+ " is NOT in list! :(");
         }
 
     }
