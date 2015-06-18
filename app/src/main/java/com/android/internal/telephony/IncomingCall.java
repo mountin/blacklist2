@@ -74,10 +74,10 @@ public class IncomingCall extends BroadcastReceiver {
                     telephonyService.endCall();
                     Log.d("MyPhoneListener", "Call canceled !!!!!");
 
-//                    Log.d("MyPhoneListener", "Deleting  number from LOG!!!!!...");
-//                    ContentResolver cr = context.getContentResolver();
-//                    CallLogUtility utility = new CallLogUtility();
-//                    utility.DeleteNumFromCallLog(cr, IncomedNumber);
+                    Log.d("MyPhoneListener", "Deleting  number from LOG!!!!!...");
+                    ContentResolver cr = context.getContentResolver();
+                    CallLogUtility utility = new CallLogUtility();
+                    utility.DeleteNumFromCallLog(cr, IncomedNumber);
 
                 } catch (Exception e) {
                     e.printStackTrace();
