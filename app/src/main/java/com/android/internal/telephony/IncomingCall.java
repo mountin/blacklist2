@@ -1,22 +1,17 @@
 package com.android.internal.telephony;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.database.Cursor;
 import android.provider.CallLog;
-import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
-import com.blacklist.start.blacklist.CallLogUtility;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import model.NumberList;
 
@@ -61,7 +56,7 @@ public class IncomingCall extends BroadcastReceiver {
             if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomedNumber)) {
 
                 Log.v(TAG, "Canceling....");
-
+                //this.deleteLastCallLog(context, IncomedNumber);
 
                 TelephonyManager telephony = (TelephonyManager)
                         context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -74,10 +69,6 @@ public class IncomingCall extends BroadcastReceiver {
                     telephonyService.endCall();
                     Log.d("MyPhoneListener", "Call canceled !!!!!");
 
-                    Log.d("MyPhoneListener", "Deleting  number from LOG!!!!!...");
-                    ContentResolver cr = context.getContentResolver();
-                    CallLogUtility utility = new CallLogUtility();
-                    utility.DeleteNumFromCallLog(cr, IncomedNumber);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -88,6 +79,32 @@ public class IncomingCall extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.e("Phone Receive Error", " " + e);
+        }
+    }
+
+
+    public static void deleteLastCallLog(Context context, String phoneNumber) {
+
+        try {
+            Log.d("MyPhoneListener", "Start Deleting... !!!");
+            //Thread.sleep(4000);
+            String strNumberOne[] = { phoneNumber };
+            Cursor cursor = context.getContentResolver().query(
+                    CallLog.Calls.CONTENT_URI, null,
+                    CallLog.Calls.NUMBER + " = ? ", strNumberOne, CallLog.Calls.DATE + " DESC");
+
+            if (cursor.moveToFirst()) {
+                int idOfRowToDelete = cursor.getInt(cursor.getColumnIndex(CallLog.Calls._ID));
+                int foo = context.getContentResolver().delete(
+                        CallLog.Calls.CONTENT_URI,
+                        CallLog.Calls._ID + " = ? ",
+                        new String[] { String.valueOf(idOfRowToDelete) });
+                Log.d("Phone Receive", "number is delited from LOG!!!....");
+            }
+        } catch (Exception ex) {
+            Log.v("deleteNumber",
+                    "Exception, unable to remove # from call log: "
+                            + ex.toString());
         }
     }
 

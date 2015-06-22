@@ -84,6 +84,13 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void onClickShowLog(View view) {
+
+        Intent intent = new Intent(MainActivity.this, LogListActivity.class);
+
+        startActivity(intent);
+    }
+
     public void saveToDb(View view) {
         NumberList Number = new NumberList();
         Number.number = "8888889900";
@@ -93,24 +100,7 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
     }
 
-    public void selectFromDb(View view) {
-        List Numbers = new Select().from(NumberList.class).execute();
 
-        NumberList retrievedThing = null;
-        Iterator<NumberList> i = Numbers.iterator();
-        if(i.hasNext()){
-            retrievedThing = i.next();
-            Log.d("myApp", "number = " + retrievedThing.number + ", type = " + retrievedThing.blockTimeType);
-        }
-
-        Toast.makeText(this, "this is Toast! "
-                , Toast.LENGTH_LONG).show();
-
-//        if (Numbers.size()!=0) {
-//            Toast.makeText(this, "name: " + Numbers.get(0).hashCode() + " age: "
-//                    + Numbers, Toast.LENGTH_LONG).show();
-//        }
-    }
 
 
 }

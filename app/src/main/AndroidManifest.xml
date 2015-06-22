@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.MODIFY_CALL_LOG"/>
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
 
     <application
         android:name="com.activeandroid.app.Application"
@@ -32,6 +34,10 @@
         </activity>
         <activity
             android:name=".StopListActivity"
+            android:label="@string/myList2" >
+        </activity>
+        <activity
+            android:name=".LogListActivity"
             android:label="@string/myList2" >
         </activity>
         <activity
