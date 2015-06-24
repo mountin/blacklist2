@@ -7,6 +7,6 @@ package com.blacklist.start.blacklist;
 public class Message {
     public String messageNumber, messageContent,messageDate;
     public String toString() {
-        return this.messageNumber + ". [" + this.messageContent + "]";//. unix[" + this.unblockedUnixTime + "]";
+        return this.messageNumber;// + ". [" + this.messageContent + "]";//. unix[" + this.unblockedUnixTime + "]";
     }
 }

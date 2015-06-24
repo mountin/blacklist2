@@ -1,12 +1,14 @@
 package com.blacklist.start.blacklist;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.provider.CallLog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -21,46 +23,125 @@ import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import model.NumberList;
 
 
-public class LogListActivity extends ListActivity implements AdapterView.OnItemLongClickListener {
+public class LogListActivity extends ListActivity {
+
+    private static int positionItem;
+    private static NumberList number;
+    Dialog dialog;
+
+    private static int timeBlock;
+
+    public static String currentItem;
+    public static String selectedItem;
 
     private static final int CM_DELETE_ID = 1;
-    public String[] catNamesArray = new String[]{ };
+    public String[] catNamesArray = new String[]{};
 
     private ArrayAdapter<String> mAdapter;
-    private ArrayList<String> catNamesList;// = new ArrayList<>(Arrays.asList(catNamesArray));
+    private ArrayList<String> callLogList;// = new ArrayList<>(Arrays.asList(catNamesArray));
 
-    public  ArrayList selectListFromDb() {
-        ArrayList NumberList = new Select().from(model.NumberList.class).execute();
-
-        if (NumberList.size()!=0) {
-            return NumberList;
-        }else
-            return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
-        this.catNamesList = this.fetchInboxSms(2);
-    if(this.catNamesList != null){
-        mAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, catNamesList);
-        setListAdapter(mAdapter);
-        getListView().setOnItemLongClickListener(this);
-    }else{
-        Toast.makeText(getApplicationContext(),
-                "The list is Empty, add one please " , Toast.LENGTH_SHORT).show();
+        //ListView listView = (ListView)findViewById(R.id.listView);
+
+        this.callLogList = this.fetchInboxSms(2);
+        if (this.callLogList != null) {
+            mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, callLogList);
+
+            setListAdapter(mAdapter);
+
+
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
+        }
+
+
+        setContentView(R.layout.activity_loglist);
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
 
-        Log.d("myApp", "show string");
-        setContentView(R.layout.activity_loglist);
+        final String[] mChooseCats = {"24h", "7days", "AllTime"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                //.setMessage("Add number to block list?")
+                .setTitle("Select time to block")
+                .setCancelable(false)
+                .setSingleChoiceItems(mChooseCats, -1,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int item) {
+                                LogListActivity.timeBlock = item;
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Select a time: "
+                                                + mChooseCats[item],
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+
+                .setPositiveButton("Add",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+
+                                Log.d("asd", "positiion on listener:" + LogListActivity.positionItem);
+                                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+                                Date d = new Date();
+
+                                LogListActivity.number.dateStart = String.valueOf((d.getTime() / 1000));
+
+                                switch (LogListActivity.timeBlock) {
+                                    case 0:
+                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
+                                        break;
+                                    case 1:
+                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
+                                        break;
+                                    case 2:
+                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
+                                        break;
+                                }
+                                Log.d("asd", "time=" + LogListActivity.number.dateStart);
+
+                                LogListActivity.number.status = LogListActivity.timeBlock;
+                                LogListActivity.number.save();
+
+                                Toast.makeText(LogListActivity.this, "Saved new Item" + LogListActivity.number.unblockedUnixTime, Toast.LENGTH_LONG).show();
+
+
+                                Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
+                                startActivity(intent);
+
+                                dialog.cancel();
+
+                            }
+                        })
+                .setNegativeButton("Cancel!",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        return builder.create();
+
+
     }
 
     @Override
@@ -77,30 +158,20 @@ public class LogListActivity extends ListActivity implements AdapterView.OnItemL
 //        Toast.makeText(getApplicationContext(),
 //                "you selected " + l.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
-        NumberList Number = new NumberList();
-        //String exploded = l.getItemAtPosition(position).toString().split(".");
-        Number.number = l.getItemAtPosition(position).toString();
-        //Number.blockTimeType = Integer.parseInt(blockTimeEditText.getText().toString()); //in int
-        Number.save();
+        LogListActivity.positionItem = position;
+
+        LogListActivity.number = new NumberList();
+
+        LogListActivity.number.number = l.getItemAtPosition(position).toString();
 
 
+        Toast.makeText(this, "Not Saved yet" + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this, "Saved " + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        showDialog(2);
+
 
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = parent.getItemAtPosition(position).toString();
-
-        mAdapter.remove(selectedItem);
-        mAdapter.notifyDataSetChanged();
-
-        Toast.makeText(getApplicationContext(),
-                selectedItem + " deleted.",
-                Toast.LENGTH_SHORT).show();
-        return true;
-    }
 
     public void onSettingsMenuClick(MenuItem item) {
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
@@ -128,19 +199,19 @@ public class LogListActivity extends ListActivity implements AdapterView.OnItemL
         ArrayList<Message> smsInbox = new ArrayList<Message>();
 
         Cursor managedCursor = this.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
-        int number = managedCursor.getColumnIndex( CallLog.Calls.NUMBER );
-        int type1 = managedCursor.getColumnIndex( CallLog.Calls.TYPE );
-        int date = managedCursor.getColumnIndex( CallLog.Calls.DATE);
+        int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
+        int type1 = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
         int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
-        while ( managedCursor.moveToNext() ) {
-            String phNumber = managedCursor.getString( number );
-            String callType = managedCursor.getString( type1 );
-            String callDate = managedCursor.getString( date );
+        while (managedCursor.moveToNext()) {
+            String phNumber = managedCursor.getString(number);
+            String callType = managedCursor.getString(type1);
+            String callDate = managedCursor.getString(date);
             Date callDayTime = new Date(Long.valueOf(callDate));
-            String callDuration = managedCursor.getString( duration );
+            String callDuration = managedCursor.getString(duration);
             String dir = null;
-            int dircode = Integer.parseInt( callType );
-            switch( dircode ) {
+            int dircode = Integer.parseInt(callType);
+            switch (dircode) {
                 case CallLog.Calls.OUTGOING_TYPE:
                     dir = "OUTGOING";
                     break;
@@ -164,7 +235,6 @@ public class LogListActivity extends ListActivity implements AdapterView.OnItemL
         return smsInbox;
 
     }
-
 
 
 }

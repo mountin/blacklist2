@@ -21,13 +21,17 @@ public class NumberList extends Model {
     @Column(name = "blockTimeType")
     public int blockTimeType;
     @Column(name = "unblockedUnixTime")
-    public int unblockedUnixTime;
+    public String unblockedUnixTime;
+    @Column(name = "dateStart")
+    public String dateStart;
+    @Column(name = "status")
+    public int status;
 
 
 
 
     public String toString() {
-        return this.number + ". [" + this.blockTimeType + "]";//. unix[" + this.unblockedUnixTime + "]";
+        return this.number + ". [" + this.status + "] unix[" + this.unblockedUnixTime + "]";
     }
 }
 
