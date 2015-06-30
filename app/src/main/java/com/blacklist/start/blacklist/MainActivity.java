@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
         Number.number = "8888889900";
         Number.blockTimeType = 2;
         Number.unblockedUnixTime = "2";
-        Number.save();
+        //Number.save();
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
     }
 
