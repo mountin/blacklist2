@@ -27,8 +27,6 @@ public class BoxAdapter extends BaseAdapter {
     LayoutInflater lInflater;
     ArrayList<NumberList> objects;
 
-    static int currentPosition;
-
     BoxAdapter(Context context, ArrayList<NumberList> numbers) {
         ctx = context;
         objects = numbers;
@@ -57,37 +55,22 @@ public class BoxAdapter extends BaseAdapter {
     // пункт списка
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // используем созданные, но не используемые view
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.item, parent, false);
+            view = lInflater.inflate(R.layout.list_item, parent, false);
         }
 
         NumberList p = getProduct(position);
-        BoxAdapter.currentPosition = position;
 
-        // и картинка
+
         ((TextView) view.findViewById(R.id.tvNumber)).setText(p.number);
         ((TextView) view.findViewById(R.id.tvUnix)).setText(p.unblockedUnixTime + "");
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
 
-        //ListView asd = (ListView) view.findViewById(R.id.list_item);
-
-        //asd.setOnItemClickListener(itemclick);
-
-        //bookListView = (ListView) findViewById(R.id.android.list);
-
-        CheckBox cbBuy = (CheckBox) view.findViewById(R.id.cbBox);
-        // присваиваем чекбоксу обработчик
-        cbBuy.setOnCheckedChangeListener(myCheckChangList);
-        // пишем позицию
-        cbBuy.setTag(position);
-        // заполняем данными из товаров: в корзине или нет
-        Log.d("asd", "!!!=position=" + position);
+        Log.d("asd", "!!!=position=box=" + position);
 
         return view;
     }
-
 
     // обработчик
     AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener() {
@@ -97,18 +80,7 @@ public class BoxAdapter extends BaseAdapter {
         }
     };
 
-    // обработчик для чекбоксов
-    OnCheckedChangeListener myCheckChangList = new OnCheckedChangeListener() {
-        public void onCheckedChanged(CompoundButton buttonView,
-                                     boolean isChecked) {
-            Log.d("asd", "click!!! posit="+buttonView.getTag());
-
-            // меняем данные товара (в корзине или нет)
-            //getProduct((Integer) buttonView.getTag()).box = isChecked;
-        }
-    };
-
-    // товар по позиции
+    // get by position
     NumberList getProduct(int position) {
         return ((NumberList) getItem(position));
     }

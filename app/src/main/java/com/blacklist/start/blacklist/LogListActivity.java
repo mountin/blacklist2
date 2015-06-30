@@ -72,6 +72,7 @@ public class LogListActivity extends ListActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
+
         final String[] mChooseCats = {"24h", "7days", "AllTime"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder

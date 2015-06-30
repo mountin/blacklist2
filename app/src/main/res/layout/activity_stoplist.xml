@@ -14,7 +14,7 @@
         android:capitalize="characters"
         android:textSize="@dimen/abc_action_bar_stacked_max_height" />
     <ListView
-    android:id="@android:id/list"
+    android:id="@+id/stop_list"
     android:layout_width="362dp"
     android:layout_height="460dp"
     android:background="#ffdcdbe0"

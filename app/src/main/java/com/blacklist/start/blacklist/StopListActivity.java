@@ -1,5 +1,6 @@
 package com.blacklist.start.blacklist;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -10,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,77 +22,73 @@ import com.activeandroid.query.Select;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
 import android.util.Log;
+
 import model.NumberList;
 
 
-public class StopListActivity extends ListActivity {
+public class StopListActivity extends Activity {
 
+    private static NumberList number;
     private static int positionItem;
     private static int timeBlock;
-    public String[] catNamesArray = new String[]{ };
 
     private ArrayAdapter<String> mAdapter;
     private static ArrayList<NumberList> catNamesList;
 
     BoxAdapter boxAdapter;
-    
-    public  ArrayList selectListFromDb() {
+
+    public ArrayList selectListFromDb() {
         ArrayList NumberList = new Select().from(model.NumberList.class).execute();
 
-        if (NumberList.size()!=0) {
+        if (NumberList.size() != 0) {
             return NumberList;
-        }else
+        } else
             return null;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_stoplist);
+        ListView listView = (ListView) findViewById(R.id.stop_list);
 
 
         StopListActivity.catNamesList = this.selectListFromDb();
-    if(StopListActivity.catNamesList != null){
-        //mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, catNamesList);
-        boxAdapter = new BoxAdapter(this, StopListActivity.catNamesList);
-        
-        //setListAdapter(mAdapter);
-        // настраиваем список
-        //ListView lvMain = (ListView) findViewById(R.id.list1);
-        //lvMain.setAdapter(boxAdapter);
-        setListAdapter(boxAdapter);
+        if (StopListActivity.catNamesList != null) {
 
-        //lvMain.setOnItemLongClickListener(this);
-    }else{
-        Toast.makeText(getApplicationContext(),
-                "The list is Empty, add one please " , Toast.LENGTH_SHORT).show();
-    }
-//        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Log.d("asd", "click3!!!");
-//            }
-//
-//        });
-        setContentView(R.layout.activity_stoplist);
+            boxAdapter = new BoxAdapter(this, StopListActivity.catNamesList);
+
+            listView.setAdapter(boxAdapter);
+            listView.setOnItemClickListener(itemClickListener);
+
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
+        }
+
         Log.d("myApp", "show string");
 
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(getApplicationContext(),
-                "you selected " + l.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+            StopListActivity.positionItem = position;
+            showDialog(2);
 
-        StopListActivity.positionItem = position;
-        showDialog(2);
-    }
+
+            StopListActivity.number = StopListActivity.catNamesList.get(position);
+            Toast.makeText(getApplicationContext(),
+                    "You selected =" + position + ". on " +  StopListActivity.number.number, Toast.LENGTH_SHORT).show();
+
+        }
+    };
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -100,7 +99,7 @@ public class StopListActivity extends ListActivity {
                 //.setMessage("Add number to block list?")
                 .setTitle("Select time to block")
                 .setCancelable(false)
-                .setSingleChoiceItems(mChooseCats, -1,
+                .setSingleChoiceItems(mChooseCats, StopListActivity.number.status,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
@@ -119,37 +118,38 @@ public class StopListActivity extends ListActivity {
 
                             public void onClick(DialogInterface dialog,
                                                 int id) {
-
-                                Log.d("asd", "positiion on listener:" + StopListActivity.positionItem);
-                                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-                                Date d = new Date();
-
-                                NumberList currFromArray = StopListActivity.catNamesList.get(positionItem);
-                                currFromArray.dateStart = String.valueOf((d.getTime() / 1000));
-
-                                switch (StopListActivity.timeBlock) {
-                                    case 0:
-                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
-                                        break;
-                                    case 1:
-                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
-                                        break;
-                                    case 2:
-                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
-                                        break;
-                                }
-                                Log.d("asd", "time=" + StopListActivity.catNamesList.get(positionItem).dateStart);
-
-                                currFromArray.status = StopListActivity.timeBlock;
-                                currFromArray.save();
-
-                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.unblockedUnixTime, Toast.LENGTH_LONG).show();
-
-
-//                                Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
-//                                startActivity(intent);
-
-                                dialog.cancel();
+//
+//                                NumberList currFromArray = StopListActivity.number;
+//                                Log.d("asd", "positiion on listener:" + StopListActivity.positionItem);
+//                                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+//                                Date d = new Date();
+//
+//                                currFromArray.dateStart = String.valueOf((d.getTime() / 1000));
+//
+//                                switch (StopListActivity.timeBlock) {
+//                                    case 0:
+//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
+//                                        break;
+//                                    case 1:
+//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
+//                                        break;
+//                                    case 2:
+//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
+//                                        break;
+//                                }
+//                                Log.d("asd", "time=" + StopListActivity.catNamesList.get(positionItem).dateStart);
+//
+//                                currFromArray.status = StopListActivity.timeBlock;
+//
+//                                currFromArray.save();
+//
+//                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.unblockedUnixTime, Toast.LENGTH_LONG).show();
+//
+//
+////                                Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
+////                                startActivity(intent);
+//
+//                                dialog.cancel();
 
                             }
                         })
@@ -161,9 +161,7 @@ public class StopListActivity extends ListActivity {
                             }
                         });
 
-
         return builder.create();
-
 
     }
 
