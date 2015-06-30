@@ -33,9 +33,10 @@ import model.NumberList;
 
 public class StopListActivity extends Activity {
 
-    private static NumberList number;
     private static int positionItem;
     private static int timeBlock;
+    private static NumberList number;
+    public String[] catNamesArray = new String[]{};
 
     private ArrayAdapter<String> mAdapter;
     private static ArrayList<NumberList> catNamesList;
@@ -61,18 +62,20 @@ public class StopListActivity extends Activity {
         StopListActivity.catNamesList = this.selectListFromDb();
         if (StopListActivity.catNamesList != null) {
 
+
             boxAdapter = new BoxAdapter(this, StopListActivity.catNamesList);
 
             listView.setAdapter(boxAdapter);
             listView.setOnItemClickListener(itemClickListener);
+
 
         } else {
             Toast.makeText(getApplicationContext(),
                     "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
         }
 
-        Log.d("myApp", "show string");
 
+        Log.d("myApp", "show string");
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
@@ -80,12 +83,12 @@ public class StopListActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             StopListActivity.positionItem = position;
-            showDialog(2);
-
 
             StopListActivity.number = StopListActivity.catNamesList.get(position);
-            Toast.makeText(getApplicationContext(),
-                    "You selected =" + position + ". on " +  StopListActivity.number.number, Toast.LENGTH_SHORT).show();
+            Log.d("asd", "status=" + StopListActivity.number.status);
+            showDialog(2);
+//            Toast.makeText(getApplicationContext(),
+//                    "You selected =" + position + ". on type=" + StopListActivity.number.status, Toast.LENGTH_SHORT).show();
 
         }
     };
@@ -113,55 +116,64 @@ public class StopListActivity extends Activity {
                             }
                         })
 
-                .setPositiveButton("Add",
+                .setPositiveButton("Edit",
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
                                                 int id) {
-//
-//                                NumberList currFromArray = StopListActivity.number;
-//                                Log.d("asd", "positiion on listener:" + StopListActivity.positionItem);
-//                                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-//                                Date d = new Date();
-//
-//                                currFromArray.dateStart = String.valueOf((d.getTime() / 1000));
-//
-//                                switch (StopListActivity.timeBlock) {
-//                                    case 0:
-//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
-//                                        break;
-//                                    case 1:
-//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
-//                                        break;
-//                                    case 2:
-//                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
-//                                        break;
-//                                }
-//                                Log.d("asd", "time=" + StopListActivity.catNamesList.get(positionItem).dateStart);
-//
-//                                currFromArray.status = StopListActivity.timeBlock;
-//
-//                                currFromArray.save();
-//
-//                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.unblockedUnixTime, Toast.LENGTH_LONG).show();
-//
-//
-////                                Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
-////                                startActivity(intent);
-//
-//                                dialog.cancel();
+
+                                Log.d("asd", "positiion on listener:" + StopListActivity.positionItem);
+                                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+                                Date d = new Date();
+
+                                NumberList currFromArray = StopListActivity.number;
+
+                                currFromArray.dateStart = String.valueOf((d.getTime() / 1000));
+
+                                switch (StopListActivity.timeBlock) {
+                                    case 0:
+                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
+                                        break;
+                                    case 1:
+                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
+                                        break;
+                                    case 2:
+                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
+                                        break;
+                                }
+
+                                currFromArray.status = StopListActivity.timeBlock;
+
+                                currFromArray.save();
+
+                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.unblockedUnixTime, Toast.LENGTH_LONG).show();
+
+                                boxAdapter.notifyDataSetChanged();
+
+                                dialog.cancel();
 
                             }
                         })
-                .setNegativeButton("Cancel!",
+                .setNegativeButton("Delete",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
+
+                                StopListActivity.number.delete();
+
+                                StopListActivity.catNamesList.remove(StopListActivity.positionItem);
+
+                                Toast.makeText(StopListActivity.this, "Item has deleted!", Toast.LENGTH_LONG).show();
+
+                                boxAdapter.notifyDataSetChanged();
+
                                 dialog.cancel();
                             }
                         });
 
+
         return builder.create();
+
 
     }
 
