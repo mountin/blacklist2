@@ -28,18 +28,38 @@
         android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:layout_width="224dp"
+        android:layout_width="261dp"
         android:layout_height="wrap_content"
         android:text="@string/timeblock"
         android:id="@+id/textView4" />
-
-    <EditText
-        android:layout_width="match_parent"
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/blocktime"
-        android:layout_gravity="center_horizontal"
-        android:inputType="text" />
+        android:orientation="vertical">
+    <RadioButton
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:text="24 часа"
+        android:id="@+id/radioButton"
+        android:onClick="onRadioButtonClicked"/>
 
+    <RadioButton
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:text="7 дней"
+        android:id="@+id/radioButton2"
+        android:layout_weight="0.07"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
+
+    <RadioButton
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:text="Навсегда"
+        android:id="@+id/radioButton3"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

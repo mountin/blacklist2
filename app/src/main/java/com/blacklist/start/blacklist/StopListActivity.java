@@ -85,10 +85,8 @@ public class StopListActivity extends Activity {
             StopListActivity.positionItem = position;
 
             StopListActivity.number = StopListActivity.catNamesList.get(position);
-            Log.d("asd", "status=" + StopListActivity.number.status);
+            Log.d("asd", "Open Dialog blockTimeType=" + StopListActivity.number.blockTimeType);
             showDialog(2);
-//            Toast.makeText(getApplicationContext(),
-//                    "You selected =" + position + ". on type=" + StopListActivity.number.status, Toast.LENGTH_SHORT).show();
 
         }
     };
@@ -97,17 +95,20 @@ public class StopListActivity extends Activity {
     protected Dialog onCreateDialog(int id) {
 
         final String[] mChooseCats = {"24h", "7days", "AllTime"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 //.setMessage("Add number to block list?")
                 .setTitle("Select time to block")
-                .setCancelable(false)
-                .setSingleChoiceItems(mChooseCats, StopListActivity.number.status,
+                .setCancelable(true)
+                .setSingleChoiceItems(mChooseCats, StopListActivity.number.blockTimeType,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int item) {
-                                StopListActivity.timeBlock = item;
+
+                                //StopListActivity.timeBlock = item;
+                                StopListActivity.number.blockTimeType = item;
+                                Log.d("asd", "New !!! selected position blockTimeType=" + StopListActivity.number.blockTimeType);
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "Select a time: "
@@ -116,13 +117,13 @@ public class StopListActivity extends Activity {
                             }
                         })
 
-                .setPositiveButton("Edit",
+                .setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
                                                 int id) {
 
-                                Log.d("asd", "positiion on listener:" + StopListActivity.positionItem);
+                                Log.d("asd", "positiion on listener: " + StopListActivity.positionItem);
                                 TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
                                 Date d = new Date();
 
@@ -142,13 +143,15 @@ public class StopListActivity extends Activity {
                                         break;
                                 }
 
-                                currFromArray.status = StopListActivity.timeBlock;
+                                //currFromArray.blockTimeType = StopListActivity.timeBlock;
+                                Log.d("asd", "Saved blockTimeType: " + currFromArray.blockTimeType);
 
                                 currFromArray.save();
 
-                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.unblockedUnixTime, Toast.LENGTH_LONG).show();
+                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.number, Toast.LENGTH_LONG).show();
 
                                 boxAdapter.notifyDataSetChanged();
+                                boxAdapter.notifyDataSetInvalidated();
 
                                 dialog.cancel();
 
