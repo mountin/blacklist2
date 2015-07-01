@@ -108,6 +108,7 @@ public class LogListActivity extends ListActivity {
                                 switch (LogListActivity.timeBlock) {
                                     case 0:
                                         LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 24 * 3600); // for 24 hours
+                                        //LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) ); // for now!
                                         break;
                                     case 1:
                                         LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
@@ -155,9 +156,6 @@ public class LogListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-//        Toast.makeText(getApplicationContext(),
-//                "you selected " + l.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
         LogListActivity.positionItem = position;
 
