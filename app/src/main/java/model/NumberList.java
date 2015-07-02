@@ -44,12 +44,17 @@ public class NumberList extends Model implements Comparator{
     @Override
     public int compare(Object lhs, Object rhs) {
 
+        NumberList myobj = (NumberList) lhs;
+
+        if(myobj.unblockedUnixTime != null)
+            return 0;
+
         Date date = (Date) rhs;
         long dateNow =  (date.getTime() / 1000);
 
-        NumberList myobj = (NumberList)lhs;
 
         Log.d("asd", "!!! check obj="+myobj.unblockedUnixTime+" with"+dateNow);
+
 
         //Lets find any OLD object
         if(Long.parseLong(myobj.unblockedUnixTime) <= dateNow) {

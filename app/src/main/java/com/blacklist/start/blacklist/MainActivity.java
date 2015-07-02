@@ -30,7 +30,7 @@ import model.User;
 public class MainActivity extends ActionBarActivity {
 
     private MainActivity context;
-    final public static int CHECKTIMER = 30000;//5 min
+    final public static int CHECKTIMER = 60000;//1 min
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

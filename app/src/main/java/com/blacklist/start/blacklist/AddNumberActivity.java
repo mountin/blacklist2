@@ -74,8 +74,15 @@ public class AddNumberActivity extends Activity {
         Number.blockTimeType = AddNumberActivity.blockTimeType;
         Number.dateStart = String.valueOf((new Date().getTime() / 1000));
 
+        Log.d("asd", "Unix time is "+AddNumberActivity.unblockedUnixTime);
 
-        Number.save();
+
+        try{
+            Number.save();
+        }catch (Exception e){
+            Log.d("asd", e.toString());
+        }
+
 
         Toast.makeText(this, "Saved " + phoneEditText.getText().toString(), Toast.LENGTH_LONG).show();
 

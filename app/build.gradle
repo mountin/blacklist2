@@ -9,7 +9,7 @@ android {
             storePassword 'pougogo'
         }
     }
-    compileSdkVersion 16
+    compileSdkVersion 22
     buildToolsVersion "23.0.0 rc2"
     defaultConfig {
         applicationId "com.blacklist.start.blacklist"
