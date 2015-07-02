@@ -55,7 +55,7 @@ public class LogListActivity extends ListActivity {
 
         this.callLogList = this.fetchInboxSms(2);
         if (this.callLogList != null) {
-            mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, callLogList);
+            mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, callLogList);
 
             setListAdapter(mAdapter);
 
