@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -52,6 +54,7 @@ public class LogListActivity extends ListActivity {
         //setContentView(R.layout.activity_main);
 
         this.callLogList = this.fetchInboxSms(2);
+        //Collections.reverse(this.callLogList);
         Log.d("asd", this.callLogList.toString());
 
         if (this.callLogList != null) {

@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import model.NumberList;
 
@@ -34,25 +36,25 @@ public class BoxAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    // кол-во элементов
+    // РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ
     @Override
     public int getCount() {
         return objects.size();
     }
 
-    // элемент по позиции
+    // СЌР»РµРјРµРЅС‚ РїРѕ РїРѕР·РёС†РёРё
     @Override
     public Object getItem(int position) {
         return objects.get(position);
     }
 
-    // id по позиции
+    // id РїРѕ РїРѕР·РёС†РёРё
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    // пункт списка
+    // РїСѓРЅРєС‚ СЃРїРёСЃРєР°
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -63,8 +65,21 @@ public class BoxAdapter extends BaseAdapter {
         NumberList p = getProduct(position);
 
 
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        Date d = new Date();
+        Integer hoursLeft = Integer.parseInt(String.valueOf((Long.parseLong(p.unblockedUnixTime) - (d.getTime() / 1000)) / 3600)); //hours left
+
+        String leftTime;
+        if(hoursLeft > 24){
+
+            leftTime = hoursLeft/24 + " РґРЅРµР№ РѕСЃС‚Р°Р»РѕСЃСЊ";
+        }else{
+            leftTime = hoursLeft + " С‡Р°СЃРѕРІ РѕСЃС‚Р°Р»РѕСЃСЊ";
+        }
+
+
         ((TextView) view.findViewById(R.id.tvNumber)).setText(p.number);
-        ((TextView) view.findViewById(R.id.tvUnix)).setText(p.unblockedUnixTime + "");
+        ((TextView) view.findViewById(R.id.tvUnix)).setText(leftTime);
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
 
         Log.d("asd", "!!!=position=box=" + position);
@@ -72,7 +87,7 @@ public class BoxAdapter extends BaseAdapter {
         return view;
     }
 
-    // обработчик
+    // РѕР±СЂР°Р±РѕС‚С‡РёРє
     AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
