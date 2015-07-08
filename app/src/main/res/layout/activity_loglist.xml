@@ -18,8 +18,9 @@
     android:layout_width="362dp"
     android:layout_height="460dp"
     android:background="#ffdcdbe0"
+
         android:layout_weight="0.45"
-        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+        style="@style/CustomListView"
 
         android:padding="10dp"
 

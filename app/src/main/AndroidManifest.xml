@@ -38,7 +38,8 @@
         </activity>
         <activity
             android:name=".LogListActivity"
-            android:label="@string/myList2" >
+            android:label="@string/myList2"
+            android:theme="@style/CustomTheme">
         </activity>
         <activity
             android:name=".AddNumberActivity"
