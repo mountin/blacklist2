@@ -19,9 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -51,12 +51,11 @@ public class LogListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
-        //ListView listView = (ListView)findViewById(R.id.listView);
-
         this.callLogList = this.fetchInboxSms(2);
-        if (this.callLogList != null) {
-            mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, callLogList);
+        Log.d("asd", this.callLogList.toString());
 
+        if (this.callLogList != null) {
+            mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.callLogList);
             setListAdapter(mAdapter);
 
 
