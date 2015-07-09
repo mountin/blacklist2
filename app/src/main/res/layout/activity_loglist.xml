@@ -7,10 +7,10 @@
         android:id="@+id/about_content"
         android:layout_width="263dp"
         android:layout_height="wrap_content"
-        android:text="@string/myList2"
+        android:text="@string/callList"
         android:layout_weight="0.07"
         android:layout_gravity="top"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:capitalize="characters"
         android:textSize="@dimen/abc_action_bar_stacked_max_height" />
     <ListView

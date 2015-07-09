@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+    <item android:id="@+id/action_stoplist"
+        android:icon="@mipmap/ic_stoplist"
+        android:title="@string/stoplist"
+        yourapp:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_compose"
+        android:icon="@mipmap/ic_add_selected"
+        android:title="@string/newnumber"
+        yourapp:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/callList"
+        android:icon="@mipmap/ic_cellphone"
+        android:title="@string/callList"
+        yourapp:showAsAction="ifRoom"/>
+
+
+</menu>

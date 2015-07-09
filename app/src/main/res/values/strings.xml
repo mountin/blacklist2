@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Black List</string>
+    <string name="app_name">Jaqqa</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -11,5 +11,12 @@
     <string name="selectnumber">Укажите новый номер:</string>
     <string name="timeblock">Укажите время для блокировки:</string>
     <string name="addnum">Добавить</string>
+    <string name="callList">Список звонков</string>
     <string name="delete_all_numbers">Удалить все номера</string>
+
+    <string name="stoplist">Стоплист</string>
+    <string name="menu">Меню</string>
+    <string name="SelecTime">Выберите время для блокировки</string>
+    <string name="Saved">Сохраненно</string>
+
 </resources>

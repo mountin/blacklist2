@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -38,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
 
         //startService(new Intent(this, CheckService.class));
         setContentView(R.layout.activity_main);
-        
+
         //CronService
         this.context = this;
         Intent alarm = new Intent(this.context, AlarmReceiver.class);
@@ -56,19 +58,30 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        int id = item.getItemId();
+        if (id == R.id.action_stoplist) {
+            Intent intent = new Intent(MainActivity.this, StopListActivity.class);
+
+            startActivity(intent);
+            Log.d("asd", "clicked Search1");
+            return true;
+        }
+
+        if (id == R.id.callList) {
+            Intent intent = new Intent(MainActivity.this, LogListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.action_compose) {
             Intent intent = new Intent(MainActivity.this, AddNumberActivity.class);
             startActivity(intent);
             return true;
@@ -86,7 +99,6 @@ public class MainActivity extends ActionBarActivity {
         new Delete().from(NumberList.class).execute();
         Toast.makeText(this,"Table cleared!",Toast.LENGTH_LONG).show();
     }
-
 
 
     public void onClick(View view) {
@@ -109,17 +121,6 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(intent);
     }
-
-    public void saveToDb(View view) {
-        NumberList Number = new NumberList();
-        Number.number = "8888889900";
-        Number.blockTimeType = 2;
-        Number.unblockedUnixTime = "2";
-        //Number.save();
-        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-    }
-
-
 
 
 }

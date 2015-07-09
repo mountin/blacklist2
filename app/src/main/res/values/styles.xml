@@ -24,4 +24,8 @@
         <item name="android:shadowDx">3</item>
         <item name="android:shadowDy">3</item>
     </style>
+    <style name="Theme.Splash" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>

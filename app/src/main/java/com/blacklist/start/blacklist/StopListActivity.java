@@ -6,7 +6,12 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,7 +36,7 @@ import android.util.Log;
 import model.NumberList;
 
 
-public class StopListActivity extends Activity {
+public class StopListActivity extends ActionBarActivity {
 
     private static int positionItem;
     private static int timeBlock;
@@ -56,6 +61,10 @@ public class StopListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stoplist);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         ListView listView = (ListView) findViewById(R.id.stop_list);
 
 
@@ -72,6 +81,7 @@ public class StopListActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(),
                     "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
+            //listView.setBackground(Drawable.createFromPath("@mipmap/ic_phone"));
         }
 
 
@@ -180,6 +190,14 @@ public class StopListActivity extends Activity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public void onSettingsMenuClick(MenuItem item) {
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
         infoTextView.setText("Вы выбрали пункт Settings");
@@ -187,17 +205,35 @@ public class StopListActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
+        Log.d("asd", "Clicked="+item.getItemId());
+
+        //home = 16908332
         int id = item.getItemId();
-        infoTextView.setText("U have selected add phone!");
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_stoplist) {
+            Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
+
+            startActivity(intent);
+
+            return true;
+        }
+
+        if (id == R.id.callList) {
+            Intent intent = new Intent(StopListActivity.this, LogListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.action_compose) {
+            Intent intent = new Intent(StopListActivity.this, AddNumberActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_delete_all) {
+            //this.clearTable();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }
