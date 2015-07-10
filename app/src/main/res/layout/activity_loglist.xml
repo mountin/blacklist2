@@ -20,8 +20,7 @@
     android:background="#ffdcdbe0"
 
         android:layout_weight="0.45"
-        style="@style/CustomListView"
-
+        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
         android:padding="10dp"
 
 

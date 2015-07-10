@@ -131,6 +131,7 @@ public class LogListActivity extends ListActivity {
                                 startActivity(intent);
 
                                 dialog.cancel();
+
                             }
                         })
                 .setNegativeButton("Cancel!",

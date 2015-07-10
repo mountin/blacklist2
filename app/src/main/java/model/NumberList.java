@@ -46,7 +46,7 @@ public class NumberList extends Model implements Comparator{
 
         NumberList myobj = (NumberList) lhs;
 
-        if(myobj.unblockedUnixTime != null)
+        if(myobj.unblockedUnixTime == null)
             return 0;
 
         Date date = (Date) rhs;
