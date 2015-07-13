@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     private MainActivity context;
     final public static int CHECKTIMER = 60000;//1 min
 
+    static final String[] mChooseTime = {"24 часа", "7 дней", "Навсегда", "1 час"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

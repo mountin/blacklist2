@@ -36,6 +36,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <RadioButton
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:text="1 час"
+            android:id="@+id/radioButton0"
+            android:checked="false"
+            android:onClick="onRadioButtonClicked"/>
     <RadioButton
         android:layout_width="211dp"
         android:layout_height="wrap_content"
@@ -51,20 +58,21 @@
         android:layout_weight="0.07"
         android:checked="false"
         android:onClick="onRadioButtonClicked"/>
-
-    <RadioButton
-        android:layout_width="211dp"
-        android:layout_height="wrap_content"
-        android:text="Навсегда"
-        android:id="@+id/radioButton3"
-        android:checked="false"
-        android:onClick="onRadioButtonClicked"/>
+     <RadioButton
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:text="Навсегда"
+            android:id="@+id/radioButton3"
+            android:checked="false"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addnum"
         android:id="@+id/button3"
+        android:background="@mipmap/ic_buttonbuy"
+        android:textColor="@color/textColorWhite"
         android:layout_gravity="center_horizontal"
         android:clickable="true"
         android:onClick="onClick" />

@@ -72,6 +72,7 @@ public class StopListActivity extends ActionBarActivity {
         if (StopListActivity.catNamesList != null) {
 
 
+            //listView.setVisibility(View.VISIBLE);
             boxAdapter = new BoxAdapter(this, StopListActivity.catNamesList);
 
             listView.setAdapter(boxAdapter);
@@ -79,13 +80,12 @@ public class StopListActivity extends ActionBarActivity {
 
 
         } else {
+            listView.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),
-                    "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
+                    "Список пуст, добавте хотя бы один номер!", Toast.LENGTH_SHORT).show();
             //listView.setBackground(Drawable.createFromPath("@mipmap/ic_phone"));
         }
 
-
-        Log.d("myApp", "show string");
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
@@ -93,9 +93,9 @@ public class StopListActivity extends ActionBarActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             StopListActivity.positionItem = position;
-
             StopListActivity.number = StopListActivity.catNamesList.get(position);
             Log.d("asd", "Open Dialog blockTimeType=" + StopListActivity.number.blockTimeType);
+            Log.d("asd", "Selected position is =" + position);
             showDialog(2);
 
         }
@@ -104,30 +104,30 @@ public class StopListActivity extends ActionBarActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
-        final String[] mChooseCats = {"24h", "7days", "AllTime"};
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 //.setMessage("Add number to block list?")
-                .setTitle("Select time to block")
+                .setTitle("Выберите время блокировки")
                 .setCancelable(true)
-                .setSingleChoiceItems(mChooseCats, StopListActivity.number.blockTimeType,
+                .setSingleChoiceItems(MainActivity.mChooseTime, StopListActivity.number.blockTimeType,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int item) {
 
-                                //StopListActivity.timeBlock = item;
+                                StopListActivity.timeBlock = item;
                                 StopListActivity.number.blockTimeType = item;
                                 Log.d("asd", "New !!! selected position blockTimeType=" + StopListActivity.number.blockTimeType);
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "Select a time: "
-                                                + mChooseCats[item],
+                                                + MainActivity.mChooseTime[item],
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
 
-                .setPositiveButton("Save",
+                .setPositiveButton("Сохранить",
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
@@ -149,16 +149,21 @@ public class StopListActivity extends ActionBarActivity {
                                         currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
                                         break;
                                     case 2:
-                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
+                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 9999 * 24 * 3600); // for 30 days
                                         break;
+                                    case 3:
+                                        AddNumberActivity.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 3600); // for 1 hour
+                                        Log.d("asd", "Saved blockTimeType: is: 1 hour case 3!!!");
+                                    break;
                                 }
 
+
                                 //currFromArray.blockTimeType = StopListActivity.timeBlock;
-                                Log.d("asd", "Saved blockTimeType: " + currFromArray.blockTimeType);
+                                Log.d("asd", "Saved blockTimeType: is:" + StopListActivity.number.blockTimeType);
 
                                 currFromArray.save();
 
-                                Toast.makeText(StopListActivity.this, "Saved new Item" + currFromArray.number, Toast.LENGTH_LONG).show();
+                                Toast.makeText(StopListActivity.this, "Сохранен номер " + currFromArray.number, Toast.LENGTH_LONG).show();
 
                                 boxAdapter.notifyDataSetChanged();
                                 boxAdapter.notifyDataSetInvalidated();
@@ -167,7 +172,7 @@ public class StopListActivity extends ActionBarActivity {
 
                             }
                         })
-                .setNegativeButton("Delete",
+                .setNegativeButton("Удалить",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -200,29 +205,28 @@ public class StopListActivity extends ActionBarActivity {
 
     public void onSettingsMenuClick(MenuItem item) {
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-        infoTextView.setText("�� ������� ����� Settings");
+        infoTextView.setText("Вы выбрали пункт Settings");
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("asd", "Clicked="+item.getItemId());
+        int id = item.getItemId();
 
         //home = 16908332
-        int id = item.getItemId();
+        if(id == 16908332){
+            finish();
+        }
         if (id == R.id.action_stoplist) {
             Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
-
             startActivity(intent);
-
             return true;
         }
-
         if (id == R.id.callList) {
             Intent intent = new Intent(StopListActivity.this, LogListActivity.class);
             startActivity(intent);
             return true;
         }
-
         if (id == R.id.action_compose) {
             Intent intent = new Intent(StopListActivity.this, AddNumberActivity.class);
             startActivity(intent);
@@ -232,7 +236,6 @@ public class StopListActivity extends ActionBarActivity {
             //this.clearTable();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

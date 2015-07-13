@@ -13,6 +13,8 @@
     <string name="addnum">Добавить</string>
     <string name="callList">Список звонков</string>
     <string name="delete_all_numbers">Удалить все номера</string>
+    <string name="emptyList">Стоп Лист пуст, добавте хотябы один</string>
+
 
     <string name="stoplist">Стоплист</string>
     <string name="menu">Меню</string>

@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import android.provider.CallLog;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -51,7 +53,6 @@ public class LogListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
 
         this.callLogList = this.fetchInboxSms(2);
         //Collections.reverse(this.callLogList);
@@ -64,7 +65,7 @@ public class LogListActivity extends ListActivity {
 
         } else {
             Toast.makeText(getApplicationContext(),
-                    "The list is Empty, add one please ", Toast.LENGTH_SHORT).show();
+                    "Список Пуст! ", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -75,13 +76,12 @@ public class LogListActivity extends ListActivity {
     protected Dialog onCreateDialog(int id) {
 
 
-        final String[] mChooseCats = {"24h", "7days", "AllTime"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 //.setMessage("Add number to block list?")
-                .setTitle("Select time to block")
+                .setTitle("Выберите время")
                 .setCancelable(false)
-                .setSingleChoiceItems(mChooseCats, -1,
+                .setSingleChoiceItems(MainActivity.mChooseTime, -1,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
@@ -90,12 +90,12 @@ public class LogListActivity extends ListActivity {
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "Select a time: "
-                                                + mChooseCats[item],
+                                                + MainActivity.mChooseTime[item],
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
 
-                .setPositiveButton("Add",
+                .setPositiveButton("Добавить",
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
@@ -118,6 +118,9 @@ public class LogListActivity extends ListActivity {
                                     case 2:
                                         LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
                                         break;
+                                    case 3:
+                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 3600); // for 1 hour
+                                        break;
                                 }
                                 Log.d("asd", "time=" + LogListActivity.number.dateStart);
 
@@ -134,7 +137,7 @@ public class LogListActivity extends ListActivity {
 
                             }
                         })
-                .setNegativeButton("Cancel!",
+                .setNegativeButton("Отмена!",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -152,7 +155,7 @@ public class LogListActivity extends ListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, CM_DELETE_ID, 0, "������� ������");
+        menu.add(0, CM_DELETE_ID, 0, "Удалить запись");
     }
 
     @Override
@@ -166,28 +169,24 @@ public class LogListActivity extends ListActivity {
         LogListActivity.number.number = l.getItemAtPosition(position).toString();
 
 
-        Toast.makeText(this, "Not Saved yet" + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Не сохранен " + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
         showDialog(2);
-
 
     }
 
 
     public void onSettingsMenuClick(MenuItem item) {
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-        infoTextView.setText("�� ������� ����� Settings");
+        infoTextView.setText("Вы выбрали пункт Settings");
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
         int id = item.getItemId();
         infoTextView.setText("U have selected add phone!");
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

@@ -73,7 +73,11 @@ public class BoxAdapter extends BaseAdapter {
         if(hoursLeft > 24){
 
             leftTime = hoursLeft/24 + " дней осталось";
+        }else if(hoursLeft > 720){ //more than 30 days
+            leftTime = " навечно!";
         }else{
+
+            hoursLeft = (hoursLeft < 0)?0:hoursLeft; //set 0 if -
             leftTime = hoursLeft + " часов осталось";
         }
 

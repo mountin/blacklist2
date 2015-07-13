@@ -27,11 +27,13 @@
         android:id="@+id/img"
         android:layout_width="46dp"
         android:layout_height="42dp"
-        android:background="@android:drawable/ic_input_add"
+        android:background="@mipmap/ic_add"
         android:cropToPadding="true"
         android:minHeight="46dp"
         android:minWidth="46dp"
         android:maxHeight="54dp"
-        android:maxWidth="54dp" />
+        android:maxWidth="54dp"
+        android:layout_gravity="center"
+        />
 
 </LinearLayout>
