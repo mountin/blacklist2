@@ -18,6 +18,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -25,12 +27,12 @@ import java.util.TimeZone;
 import model.NumberList;
 import model.NumberListInterface;
 
-public class BoxAdapter extends BaseAdapter {
+public class BoxAdapterLogList extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
     ArrayList<? extends NumberListInterface> objects;
 
-    BoxAdapter(Context context, ArrayList<? extends NumberListInterface> numbers) {
+    BoxAdapterLogList(Context context, ArrayList<? extends NumberListInterface> numbers) {
         ctx = context;
         objects = numbers;
         lInflater = (LayoutInflater) ctx
@@ -63,36 +65,26 @@ public class BoxAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.list_item, parent, false);
         }
 
-        NumberList p = getProduct(position);
+        Message p = getProduct(position);
 
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date d = new Date();
 
+
+        SimpleDateFormat dateFormat = null;
+
+        dateFormat = new SimpleDateFormat("HH:mm");
+
+        if ((d.getTime() / 1000) - (p.messageDate.getTime() / 1000) > 24 * 3600) {
+            dateFormat = new SimpleDateFormat("dd MMMM", myDateFormatSymbols);
+        }
+        String date = dateFormat.format(p.messageDate);
+
         ((TextView) view.findViewById(R.id.tvNumber)).setText(p.number);
-        String setTime = null;
-
-        if (p.unblockedUnixTime != null) {
-            Integer hoursLeft = Integer.parseInt(String.valueOf((Long.parseLong(p.unblockedUnixTime) - (d.getTime() / 1000)) / 3600)); //hours left
-
-
-            if (hoursLeft > 24) {
-
-                setTime = hoursLeft / 24 + " дней осталось";
-            } else if (hoursLeft > 720) { //more than 30 days
-                setTime = " навечно!";
-            } else {
-                hoursLeft = (hoursLeft < 0) ? 0 : hoursLeft; //set 0 if -
-                setTime = hoursLeft + " часов осталось";
-            }
-        }
-
-        if (p.messageDate != null) {
-            setTime = p.messageDate;
-        }
-
-        ((TextView) view.findViewById(R.id.tvUnix)).setText(setTime);
+        ((TextView) view.findViewById(R.id.tvUnix)).setText(date);
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
+
         Log.d("asd", "!!!=position=box=" + position);
 
         return view;
@@ -106,9 +98,19 @@ public class BoxAdapter extends BaseAdapter {
         }
     };
 
+    private static DateFormatSymbols myDateFormatSymbols = new DateFormatSymbols() {
+
+        @Override
+        public String[] getMonths() {
+            return new String[]{"января", "февраля", "марта", "апреля", "мая", "июня",
+                    "июля", "августа", "сентября", "октября", "ноября", "декабря"};
+        }
+
+    };
+
     // get by position
-    NumberList getProduct(int position) {
-        return ((NumberList) getItem(position));
+    Message getProduct(int position) {
+        return ((Message) getItem(position));
     }
 
 

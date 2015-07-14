@@ -46,14 +46,14 @@
         </activity>
         <activity
             android:name=".LogListActivity"
-            android:label="@string/myList2"
+            android:label="@string/myCallList"
             android:screenOrientation="portrait"
             >
         </activity>
         <activity
             android:name=".AddNumberActivity"
             android:screenOrientation="portrait"
-            android:label="@string/myList2" >
+            android:label="@string/add_number" >
         </activity>
 
         <!-- Notice this tag which provides the database name -->

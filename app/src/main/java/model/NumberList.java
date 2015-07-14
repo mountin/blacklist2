@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by mountin on 10.06.2015.
  */
 @Table(name="NumberLists")
-public class NumberList extends Model implements Comparator{
+public class NumberList extends Model implements Comparator, NumberListInterface{
     public NumberList()
     {
         super();

@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="myList1">Мой список</string>
     <string name="myList2"><b>Стоп лист</b></string>
+    <string name="myCallList"><b>Список звонков</b></string>
     <string name="add_number">Добавить новый телефон</string>
     <string name="action_kitten">action_kitten</string>
     <string name="newnumber">Добавить новый номер</string>

@@ -30,9 +30,10 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import model.NumberList;
+import model.NumberListInterface;
 
 
-public class LogListActivity extends ListActivity {
+public class LogListActivity extends ActionBarActivity {
 
     private static int positionItem;
     private static NumberList number;
@@ -46,31 +47,60 @@ public class LogListActivity extends ListActivity {
     private static final int CM_DELETE_ID = 1;
     public String[] catNamesArray = new String[]{};
 
-    private ArrayAdapter<String> mAdapter;
-    private ArrayList<String> callLogList;// = new ArrayList<>(Arrays.asList(catNamesArray));
-
+    private static ArrayList<Message> callLogList;// = new ArrayList<>(Arrays.asList(catNamesArray));
+    BoxAdapterLogList boxAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_stoplist);.
+        setContentView(R.layout.activity_loglist);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        ListView listView = (ListView) findViewById(R.id.list);
 
         this.callLogList = this.fetchInboxSms(2);
         //Collections.reverse(this.callLogList);
         Log.d("asd", this.callLogList.toString());
 
+
         if (this.callLogList != null) {
-            mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.callLogList);
-            setListAdapter(mAdapter);
 
-
+            boxAdapter = new BoxAdapterLogList(this, this.callLogList);
+            listView.setAdapter(boxAdapter);
+            listView.setOnItemClickListener(itemClickListener);
         } else {
+            listView.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),
                     "Список Пуст! ", Toast.LENGTH_SHORT).show();
         }
 
 
-        setContentView(R.layout.activity_loglist);
     }
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            LogListActivity.positionItem = position;
+            //LogListActivity.number = LogListActivity.callLogList.get(position);
+            Log.d("asd", "AdapterView.OnItemClickListener Selected position is =" + position);
+            LogListActivity.positionItem = position;
+
+            LogListActivity.number = new NumberList();
+
+            LogListActivity.number.number = LogListActivity.callLogList.get(position).toString();
+
+            Log.d("asd", "U selected number  is =" + LogListActivity.number.number);
+
+            Toast.makeText(LogListActivity.this, "Не сохранен " + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+
+
+            showDialog(2);
+
+        }
+    };
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -127,7 +157,7 @@ public class LogListActivity extends ListActivity {
                                 LogListActivity.number.status = LogListActivity.timeBlock;
                                 LogListActivity.number.save();
 
-                                Toast.makeText(LogListActivity.this, "Saved new Item" + LogListActivity.number.unblockedUnixTime, Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogListActivity.this, "Saved new Item" + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
 
                                 Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
@@ -145,9 +175,7 @@ public class LogListActivity extends ListActivity {
                             }
                         });
 
-
         return builder.create();
-
 
     }
 
@@ -158,23 +186,22 @@ public class LogListActivity extends ListActivity {
         menu.add(0, CM_DELETE_ID, 0, "Удалить запись");
     }
 
-    @Override
+    //@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
+        //super.onListItemClick(l, v, position, id);
 
+        Log.d("asd", "onListItemClick Clicked is position=" + position);
         LogListActivity.positionItem = position;
 
         LogListActivity.number = new NumberList();
 
         LogListActivity.number.number = l.getItemAtPosition(position).toString();
 
-
         Toast.makeText(this, "Не сохранен " + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
         showDialog(2);
 
     }
-
 
     public void onSettingsMenuClick(MenuItem item) {
         TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
@@ -184,16 +211,17 @@ public class LogListActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
         int id = item.getItemId();
-        infoTextView.setText("U have selected add phone!");
+        //home = 16908332
+        if (id == 16908332) {
+            finish();
+        }
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public ArrayList fetchInboxSms(int type) {
         ArrayList<Message> smsInbox = new ArrayList<Message>();
@@ -226,15 +254,13 @@ public class LogListActivity extends ListActivity {
             }
             Message message = new Message();
             message.messageNumber = phNumber;
+            message.number = phNumber;
             message.messageContent = dir;
-            message.messageDate = callDayTime.toString();
+            message.messageDate = callDayTime;
             smsInbox.add(message);
         }
         managedCursor.close();
-
         return smsInbox;
-
     }
-
 
 }
