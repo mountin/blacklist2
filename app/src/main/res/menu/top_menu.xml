@@ -12,7 +12,7 @@
         yourapp:showAsAction="ifRoom"/>
 
     <item android:id="@+id/callList"
-        android:icon="@mipmap/ic_cellphonewhite"
+        android:icon="@mipmap/ic_cellphonehite"
         android:title="@string/callList"
         yourapp:showAsAction="ifRoom"/>
 

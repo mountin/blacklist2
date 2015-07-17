@@ -59,8 +59,6 @@ public class LogListActivity extends ActionBarActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         this.callLogList = this.fetchInboxSms(2);
-        //Collections.reverse(this.callLogList);
-        //Log.d("asd", this.callLogList.toString());
 
 
         if (this.callLogList != null) {

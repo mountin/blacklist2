@@ -87,7 +87,7 @@ public class AddNumberActivity extends ActionBarActivity {
             return false;
         }
 
-        if(!this.phoneEditText.matches("[0-9+]+")){
+        if(!this.phoneEditText.matches("[0-9+]{3,20}")){
             Toast.makeText(this, "Введите пожалуйста корректный номер телефона! (например +12345678900)", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -132,6 +132,10 @@ public class AddNumberActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_menu, menu);
+
+        MenuItem blockListItem = menu.findItem(R.id.action_compose);
+        blockListItem.setVisible(false);
+
         return super.onCreateOptionsMenu(menu);
     }
 
