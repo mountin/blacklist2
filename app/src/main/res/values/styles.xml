@@ -37,6 +37,7 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
         <item name="android:actionMenuTextColor">@color/textColorWhite</item>
+        <item name="android:textSize">14sp</item>
 
 
         <!-- Support library compatibility -->
@@ -62,7 +63,7 @@
     <!-- ActionBar title text -->
     <style name="MyActionBarTitleText"
         parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/textColorWhite</item>
     </style>
 

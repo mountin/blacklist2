@@ -1,12 +1,10 @@
 package com.blacklist.start.blacklist;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -16,19 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.TimeZone;
 
 import android.util.Log;
@@ -44,12 +38,12 @@ public class StopListActivity extends ActionBarActivity {
     public String[] catNamesArray = new String[]{};
 
     private ArrayAdapter<String> mAdapter;
-    private static ArrayList<NumberList> catNamesList;
+    private static ArrayList<NumberList> numbersFromStopList;
 
     BoxAdapter boxAdapter;
 
     public ArrayList selectListFromDb() {
-        ArrayList NumberList = new Select().from(model.NumberList.class).execute();
+        ArrayList NumberList = new Select().from(model.NumberList.class).orderBy("dateStart DESC").execute();
 
         if (NumberList.size() != 0) {
             return NumberList;
@@ -68,12 +62,17 @@ public class StopListActivity extends ActionBarActivity {
         ListView listView = (ListView) findViewById(R.id.stop_list);
 
 
-        StopListActivity.catNamesList = this.selectListFromDb();
-        if (StopListActivity.catNamesList != null) {
+        StopListActivity.numbersFromStopList = this.selectListFromDb();
+        if (StopListActivity.numbersFromStopList != null) {
 
-
+            //Log.d("asd", StopListActivity.catNamesList.toString());
             //listView.setVisibility(View.VISIBLE);
-            boxAdapter = new BoxAdapter(this, StopListActivity.catNamesList);
+
+            //Collections.reverse(StopListActivity.numbersFromStopList);
+            //Log.d("asd", this.callLogList.toString());
+            boxAdapter = new BoxAdapter(this, StopListActivity.numbersFromStopList);
+
+
 
             listView.setAdapter(boxAdapter);
             listView.setOnItemClickListener(itemClickListener);
@@ -93,7 +92,7 @@ public class StopListActivity extends ActionBarActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             StopListActivity.positionItem = position;
-            StopListActivity.number = StopListActivity.catNamesList.get(position);
+            StopListActivity.number = StopListActivity.numbersFromStopList.get(position);
             Log.d("asd", "Open Dialog blockTimeType=" + StopListActivity.number.blockTimeType);
             Log.d("asd", "Selected position is =" + position);
             showDialog(2);
@@ -179,7 +178,7 @@ public class StopListActivity extends ActionBarActivity {
 
                                 StopListActivity.number.delete();
 
-                                StopListActivity.catNamesList.remove(StopListActivity.positionItem);
+                                StopListActivity.numbersFromStopList.remove(StopListActivity.positionItem);
 
                                 Toast.makeText(StopListActivity.this, "Item has deleted!", Toast.LENGTH_LONG).show();
 
@@ -189,17 +188,18 @@ public class StopListActivity extends ActionBarActivity {
                             }
                         });
 
-
         return builder.create();
-
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_actions, menu);
+        inflater.inflate(R.menu.top_menu, menu);
+
+        MenuItem blockListItem = menu.findItem(R.id.action_stoplist);
+        blockListItem.setVisible(false);
+
         return super.onCreateOptionsMenu(menu);
     }
 

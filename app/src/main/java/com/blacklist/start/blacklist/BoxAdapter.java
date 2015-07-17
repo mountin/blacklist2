@@ -65,9 +65,10 @@ public class BoxAdapter extends BaseAdapter {
 
         NumberList p = getProduct(position);
 
-
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date d = new Date();
+
+        Log.d("asd", "Number is= "+p.number);
 
         ((TextView) view.findViewById(R.id.tvNumber)).setText(p.number);
         String setTime = null;
@@ -75,13 +76,13 @@ public class BoxAdapter extends BaseAdapter {
         if (p.unblockedUnixTime != null) {
             Integer hoursLeft = Integer.parseInt(String.valueOf((Long.parseLong(p.unblockedUnixTime) - (d.getTime() / 1000)) / 3600)); //hours left
 
-
-            if (hoursLeft > 24) {
+            if (hoursLeft > 24 && hoursLeft < 720) {
 
                 setTime = hoursLeft / 24 + " дней осталось";
-            } else if (hoursLeft > 720) { //more than 30 days
-                setTime = " навечно!";
-            } else {
+            } else if (hoursLeft >= 720) { //more than 30 days
+                setTime = " навсегда!";
+            } else if (hoursLeft < 24){
+                Log.d("asd", "Hours 0 Left="+hoursLeft);
                 hoursLeft = (hoursLeft < 0) ? 0 : hoursLeft; //set 0 if -
                 setTime = hoursLeft + " часов осталось";
             }

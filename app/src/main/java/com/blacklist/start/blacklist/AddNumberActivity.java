@@ -1,7 +1,5 @@
 package com.blacklist.start.blacklist;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -133,7 +131,7 @@ public class AddNumberActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_actions, menu);
+        inflater.inflate(R.menu.top_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

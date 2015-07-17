@@ -32,7 +32,6 @@ import java.util.TimeZone;
 import model.NumberList;
 import model.NumberListInterface;
 
-
 public class LogListActivity extends ActionBarActivity {
 
     private static int positionItem;
@@ -47,13 +46,12 @@ public class LogListActivity extends ActionBarActivity {
     private static final int CM_DELETE_ID = 1;
     public String[] catNamesArray = new String[]{};
 
-    private static ArrayList<Message> callLogList;// = new ArrayList<>(Arrays.asList(catNamesArray));
+    private static ArrayList<Message> callLogList;
     BoxAdapterLogList boxAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_stoplist);.
         setContentView(R.layout.activity_loglist);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -62,11 +60,10 @@ public class LogListActivity extends ActionBarActivity {
 
         this.callLogList = this.fetchInboxSms(2);
         //Collections.reverse(this.callLogList);
-        Log.d("asd", this.callLogList.toString());
+        //Log.d("asd", this.callLogList.toString());
 
 
         if (this.callLogList != null) {
-
             boxAdapter = new BoxAdapterLogList(this, this.callLogList);
             listView.setAdapter(boxAdapter);
             listView.setOnItemClickListener(itemClickListener);
@@ -75,7 +72,6 @@ public class LogListActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(),
                     "Список Пуст! ", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 
@@ -95,7 +91,6 @@ public class LogListActivity extends ActionBarActivity {
             Log.d("asd", "U selected number  is =" + LogListActivity.number.number);
 
             Toast.makeText(LogListActivity.this, "Не сохранен " + LogListActivity.number.number, Toast.LENGTH_LONG).show();
-
 
             showDialog(2);
 
@@ -146,7 +141,7 @@ public class LogListActivity extends ActionBarActivity {
                                         LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 7 * 24 * 3600); // for 7 days
                                         break;
                                     case 2:
-                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 30 * 24 * 3600); // for 30 days
+                                        LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 9999 * 24 * 3600); // for 30 days
                                         break;
                                     case 3:
                                         LogListActivity.number.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 3600); // for 1 hour
@@ -157,7 +152,7 @@ public class LogListActivity extends ActionBarActivity {
                                 LogListActivity.number.status = LogListActivity.timeBlock;
                                 LogListActivity.number.save();
 
-                                Toast.makeText(LogListActivity.this, "Saved new Item" + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogListActivity.this, "Сохранен номер " + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
 
                                 Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
@@ -204,8 +199,8 @@ public class LogListActivity extends ActionBarActivity {
     }
 
     public void onSettingsMenuClick(MenuItem item) {
-        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-        infoTextView.setText("Вы выбрали пункт Settings");
+//        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
+//        infoTextView.setText("Вы выбрали пункт Settings");
     }
 
     @Override

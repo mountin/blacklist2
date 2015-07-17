@@ -14,7 +14,7 @@
             android:layout_width="251dp"
             android:layout_height="50dp"
             android:text="This is Title"
-            android:textSize="25sp" />
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/tvUnix"
@@ -29,10 +29,10 @@
         android:layout_height="42dp"
         android:background="@mipmap/ic_add"
         android:cropToPadding="true"
-        android:minHeight="46dp"
-        android:minWidth="46dp"
-        android:maxHeight="54dp"
-        android:maxWidth="54dp"
+        android:minHeight="40dp"
+        android:minWidth="40dp"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
         android:layout_gravity="center"
         />
 
