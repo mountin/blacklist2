@@ -68,7 +68,7 @@ public class BoxAdapterLogList extends BaseAdapter {
         Message p = getProduct(position);
 
 
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        //TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date d = new Date();
 
 
