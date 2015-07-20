@@ -7,5 +7,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/blacklist/start/blacklist/LogListActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/blacklist/start/blacklist/MainActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/blacklist/start/blacklist/StopListActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cronService/BackgroundService.java" charset="UTF-8" />
   </component>
 </project>
