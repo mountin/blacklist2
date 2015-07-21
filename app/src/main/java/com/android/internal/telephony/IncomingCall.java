@@ -52,9 +52,8 @@ public class IncomingCall extends BroadcastReceiver {
         String IncomedNumber = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         Log.d("onReceive", "  !!!!! Number detected: " + IncomedNumber);
 
-        try {
+            if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomedNumber) ) {
 
-            if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomedNumber)) {
                 final AudioManager mode = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
                 mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
@@ -80,9 +79,6 @@ public class IncomingCall extends BroadcastReceiver {
                 Log.d("myApp", "The number " + IncomingCall.IncommingNumber + " is NOT in list! :(");
             }
 
-        } catch (Exception e) {
-            Log.e("Phone Receive Error", " " + e);
-        }
 
 
     }

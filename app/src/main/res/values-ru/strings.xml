@@ -15,7 +15,7 @@
     <string name="addNumber">Добавить номер</string>
     <string name="callList">Список звонков</string>
     <string name="delete_all_numbers">Удалить все номера</string>
-    <string name="emptyList">Стоп Лист пуст, добавте хотябы один</string>
+    <string name="emptyList">Список пуст, добавьте хотябы один</string>
     <string name="stoplist">Стоплист</string>
     <string name="menu">Меню</string>
     <string name="SelecTime">Выберите время для блокировки</string>

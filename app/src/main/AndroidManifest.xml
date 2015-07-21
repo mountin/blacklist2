@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
@@ -77,7 +78,7 @@
             android:value="1" />
 
         <receiver android:name="com.android.internal.telephony.IncomingCall" android:enabled="true">
-            <intent-filter android:priority="9999" >
+            <intent-filter android:priority="1000" >
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
