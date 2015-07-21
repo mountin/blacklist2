@@ -71,7 +71,8 @@ public class AddNumberActivity extends ActionBarActivity {
 
     public boolean validator(){
         if(AddNumberActivity.unblockedUnixTime == null){
-            Toast.makeText(this, "Выберите пожалуйста время!", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this, getString(R.string.SelecTime), Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -83,12 +84,12 @@ public class AddNumberActivity extends ActionBarActivity {
         Log.d("asd", "Selectedis = "+this.phoneEditText);
 
         if(this.phoneEditText.isEmpty()){
-            Toast.makeText(this, "Укажите пожалуйста номер телефона!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.SelectNumber), Toast.LENGTH_LONG).show();
             return false;
         }
 
         if(!this.phoneEditText.matches("[0-9+]{3,20}")){
-            Toast.makeText(this, "Введите пожалуйста корректный номер телефона! (например +12345678900)", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.SelectNumberError), Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -122,7 +123,7 @@ public class AddNumberActivity extends ActionBarActivity {
         }
 
 
-        Toast.makeText(this, "Сохранено " + this.phoneEditText, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.Saved) + this.phoneEditText, Toast.LENGTH_LONG).show();
 
         startActivity(intent);
     }

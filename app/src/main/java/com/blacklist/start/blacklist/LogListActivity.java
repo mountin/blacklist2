@@ -68,7 +68,7 @@ public class LogListActivity extends ActionBarActivity {
         } else {
             listView.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),
-                    "Список Пуст! ", Toast.LENGTH_SHORT).show();
+                    getString(R.string.emptyList), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -88,7 +88,7 @@ public class LogListActivity extends ActionBarActivity {
 
             Log.d("asd", "U selected number  is =" + LogListActivity.number.number);
 
-            Toast.makeText(LogListActivity.this, "Не сохранен " + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+            Toast.makeText(LogListActivity.this, getString(R.string.notSaved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
             showDialog(2);
 
@@ -102,7 +102,7 @@ public class LogListActivity extends ActionBarActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 //.setMessage("Add number to block list?")
-                .setTitle("Выберите время")
+                .setTitle(getString(R.string.SelecTime))
                 .setCancelable(false)
                 .setSingleChoiceItems(MainActivity.mChooseTime, -1,
                         new DialogInterface.OnClickListener() {
@@ -112,13 +112,13 @@ public class LogListActivity extends ActionBarActivity {
                                 LogListActivity.timeBlock = item;
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        "Select a time: "
+                                        getString(R.string.SelecedTime)
                                                 + MainActivity.mChooseTime[item],
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
 
-                .setPositiveButton("Добавить",
+                .setPositiveButton(getString(R.string.Add),
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
@@ -150,7 +150,7 @@ public class LogListActivity extends ActionBarActivity {
                                 LogListActivity.number.status = LogListActivity.timeBlock;
                                 LogListActivity.number.save();
 
-                                Toast.makeText(LogListActivity.this, "Сохранен номер " + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogListActivity.this, getString(R.string.Saved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
 
                                 Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
@@ -160,7 +160,7 @@ public class LogListActivity extends ActionBarActivity {
 
                             }
                         })
-                .setNegativeButton("Отмена!",
+                .setNegativeButton(getString(R.string.Cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -176,7 +176,7 @@ public class LogListActivity extends ActionBarActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, CM_DELETE_ID, 0, "Удалить запись");
+        menu.add(0, CM_DELETE_ID, 0, getString(R.string.Delete));
     }
 
     //@Override
@@ -190,7 +190,7 @@ public class LogListActivity extends ActionBarActivity {
 
         LogListActivity.number.number = l.getItemAtPosition(position).toString();
 
-        Toast.makeText(this, "Не сохранен " + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.notSaved) + l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
         showDialog(2);
 

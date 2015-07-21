@@ -56,4 +56,14 @@
         android:capitalize="none"
         android:textSize="@dimen/abc_text_size_small_material" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Language"
+        android:id="@+id/button4"
+        android:layout_below="@+id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:onClick="changeLang" />
+
 </RelativeLayout>
