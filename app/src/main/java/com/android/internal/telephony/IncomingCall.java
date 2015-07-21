@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.provider.CallLog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -46,14 +47,16 @@ public class IncomingCall extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        //make silent
 
         String IncomedNumber = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         Log.d("onReceive", "  !!!!! Number detected: " + IncomedNumber);
 
-
         try {
 
             if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomedNumber)) {
+                final AudioManager mode = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
+                mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
                 Log.v(TAG, "Canceling....");
                 //this.deleteLastCallLog(context, IncomedNumber);
@@ -68,18 +71,20 @@ public class IncomingCall extends BroadcastReceiver {
                     //telephonyService.silenceRinger();
                     telephonyService.endCall();
                     Log.d("MyPhoneListener", "Call canceled !!!!!");
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                //set normal sound
+                mode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }else{
                 Log.d("myApp", "The number " + IncomingCall.IncommingNumber + " is NOT in list! :(");
             }
+
         } catch (Exception e) {
             Log.e("Phone Receive Error", " " + e);
         }
+
+
     }
 
 
