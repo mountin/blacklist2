@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Jaqqa</string>
 
-    <string name="hello_world">Привет Мир!!!</string>
+    <string name="hello_world">Вы выбрали Русский!!!</string>
     <string name="action_settings">Насройки</string>
     <string name="myList1">Мой список</string>
     <string name="myList2"><b>Стоп лист</b></string>
@@ -27,5 +27,15 @@
     <string name="Cancel">Отмена!</string>
     <string name="Delete">Удалить</string>
     <string name="Add">Добавить</string>
+    <string name="SelectLanguage">Выберите язык</string>
+    <string-array name="Language">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+    <string name="h24">24 часа</string>
+    <string name="days7">7 дней</string>
+    <string name="alltime">Навсегда</string>
+    <string name="h1">1 час</string>
+
 
 </resources>

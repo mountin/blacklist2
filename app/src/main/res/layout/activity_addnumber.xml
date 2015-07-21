@@ -39,21 +39,21 @@
         <RadioButton
             android:layout_width="211dp"
             android:layout_height="wrap_content"
-            android:text="1 час"
+            android:text="@string/h1"
             android:id="@+id/radioButton0"
             android:checked="false"
             android:onClick="onRadioButtonClicked"/>
     <RadioButton
         android:layout_width="211dp"
         android:layout_height="wrap_content"
-        android:text="24 часа"
+        android:text="@string/h24"
         android:id="@+id/radioButton"
         android:onClick="onRadioButtonClicked"/>
 
     <RadioButton
         android:layout_width="211dp"
         android:layout_height="wrap_content"
-        android:text="7 дней"
+        android:text="@string/days7"
         android:id="@+id/radioButton2"
         android:layout_weight="0.07"
         android:checked="false"
@@ -61,7 +61,7 @@
      <RadioButton
             android:layout_width="211dp"
             android:layout_height="wrap_content"
-            android:text="Навсегда"
+         android:text="@string/alltime"
             android:id="@+id/radioButton3"
             android:checked="false"
             android:onClick="onRadioButtonClicked"/>

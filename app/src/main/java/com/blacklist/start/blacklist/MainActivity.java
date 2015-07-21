@@ -31,32 +31,44 @@ public class MainActivity extends ActionBarActivity {
     final public static int CHECKTIMER = 60000;//1 min
     private Locale locale = null;
 
-    static final String[] mChooseTime = {"24 часа", "7 дней", "Навсегда", "1 час"};
+    final static String SPLANG = "local";
+    static String[] mChooseTime;// = {"24 часа", "7 дней", "", "1 час"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mChooseTime = new String[] {getString(R.string.h24), getString(R.string.days7), getString(R.string.alltime), getString(R.string.h1)};
 
-        //Get Preferenece
-        SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences("local", Context.MODE_PRIVATE);
-        String editor2 = sharedpreferences.getString("local", "");
-        Log.d("asd", "localisation=" + editor2);
-        String lang = "ru";
+        //Get Preferenece localisation
+        SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences(SPLANG, Context.MODE_PRIVATE);
+        String localisatFromShare = sharedpreferences.getString("local", "");
+        Log.d("asd", "localisation=" + localisatFromShare);
 
-        if(editor2 != null){
+
+        //SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences("local", Context.MODE_PRIVATE);
+
+        String editor2 = sharedpreferences.getString(SPLANG, "");
+        Log.d("asd", "sharedData editor2=" + editor2);
+
+
+        if(localisatFromShare.isEmpty()){
+
+                Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
+                startActivity(intent);
+                //finish();
 
         }else{
-            //language
-            Configuration config = getBaseContext().getResources().getConfiguration();
-            //String lang = editor2;
-
-            if (!"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
-                locale = new Locale(lang);
-                Locale.setDefault(locale);
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-            }
+//            //language
+//            Configuration config = getBaseContext().getResources().getConfiguration();
+//            //String lang = editor2;
+//
+//            if (!"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+//                locale = new Locale(lang);
+//                Locale.setDefault(locale);
+//                config.locale = locale;
+//                getBaseContext().getResources().updateConfiguration(config,
+//                        getBaseContext().getResources().getDisplayMetrics());
+//            }
 
             //this.locale = new Locale(editor2);
         }
@@ -77,10 +89,6 @@ public class MainActivity extends ActionBarActivity {
         }else{
             Log.d("asd", "Alarm is olready running!!!");
         }
-
-
-
-
 
     }
 
