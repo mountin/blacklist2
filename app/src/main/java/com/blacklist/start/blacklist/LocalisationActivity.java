@@ -1,11 +1,14 @@
 package com.blacklist.start.blacklist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -22,6 +25,9 @@ public class LocalisationActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //startService(new Intent(this, CheckService.class));
         setContentView(R.layout.activity_localisation);
@@ -66,6 +72,18 @@ public class LocalisationActivity extends ActionBarActivity {
                     getBaseContext().getResources().getDisplayMetrics());
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        //home = 16908332
+        if (id == 16908332) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

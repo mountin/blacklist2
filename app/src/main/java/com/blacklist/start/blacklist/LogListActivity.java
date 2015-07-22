@@ -212,6 +212,12 @@ public class LogListActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.language) {
+            Intent intent = new Intent(this, LocalisationActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

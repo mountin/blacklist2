@@ -50,29 +50,13 @@ public class MainActivity extends ActionBarActivity {
         String editor2 = sharedpreferences.getString(SPLANG, "");
         Log.d("asd", "sharedData editor2=" + editor2);
 
-
         if(localisatFromShare.isEmpty()){
 
                 Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
                 startActivity(intent);
                 //finish();
 
-        }else{
-//            //language
-//            Configuration config = getBaseContext().getResources().getConfiguration();
-//            //String lang = editor2;
-//
-//            if (!"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
-//                locale = new Locale(lang);
-//                Locale.setDefault(locale);
-//                config.locale = locale;
-//                getBaseContext().getResources().updateConfiguration(config,
-//                        getBaseContext().getResources().getDisplayMetrics());
-//            }
-
-            //this.locale = new Locale(editor2);
         }
-
 
         //startService(new Intent(this, CheckService.class));
         setContentView(R.layout.activity_main);
@@ -91,13 +75,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
-
-
-    public void changeLang(View view){
-        Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,6 +98,12 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.callList) {
             Intent intent = new Intent(MainActivity.this, LogListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.language) {
+            Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
             startActivity(intent);
             return true;
         }

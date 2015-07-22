@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Jaqqa</string>
-
     <string name="hello_world">Вы выбрали Русский!!!</string>
     <string name="action_settings">Насройки</string>
     <string name="myList1">Мой список</string>
     <string name="myList2"><b>Стоп лист</b></string>
     <string name="myCallList"><b>Список звонков</b></string>
-    <string name="add_number">Добавить новый телефон</string>
+    <string name="add_number">Добавить номер3</string>
     <string name="action_kitten">action_kitten</string>
     <string name="newnumber">Добавить новый номер</string>
     <string name="selectnumber">Укажите новый номер:</string>
@@ -18,6 +17,7 @@
     <string name="emptyList">Список пуст, добавьте хотябы один</string>
     <string name="stoplist">Стоплист</string>
     <string name="menu">Меню</string>
+    <string name="selectFromCallLog">Выбрать из журнала вызовов</string>
     <string name="SelecTime">Выберите время для блокировки</string>
     <string name="SelecedTime">Выбранное время: </string>
     <string name="SelectNumber">Укажите пожалуйста номер телефона!</string>
@@ -41,6 +41,7 @@
     <string name="DaysLeft"> дней осталось</string>
     <string name="HoursLeft"> часов осталось</string>
     <string name="Forever"> навсегда</string>
+    <string name="Language">Изменить язык</string>
 
 
 

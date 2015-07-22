@@ -36,6 +36,13 @@ public class AddNumberActivity extends ActionBarActivity {
 
     }
 
+    public void callLogActivity(View view) {
+        Intent intent = new Intent(AddNumberActivity.this, LogListActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -159,6 +166,12 @@ public class AddNumberActivity extends ActionBarActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.language) {
+            Intent intent = new Intent(this, LocalisationActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         if (id == R.id.callList) {
             Intent intent = new Intent(AddNumberActivity.this, LogListActivity.class);
             startActivity(intent);

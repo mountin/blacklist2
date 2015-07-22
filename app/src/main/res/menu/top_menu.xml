@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
     <item android:id="@+id/action_stoplist"
         android:icon="@mipmap/ic_stoplist"
         android:title="@string/stoplist"
+        android:visible="false"
+        android:visibility="invisible"
         yourapp:showAsAction="ifRoom"/>
 
     <item android:id="@+id/action_compose"
         android:icon="@mipmap/ic_add_selected"
         android:title="@string/newnumber"
+        android:visible="false"
+        android:visibility="invisible"
         yourapp:showAsAction="ifRoom"/>
 
     <item android:id="@+id/callList"
         android:icon="@mipmap/ic_cellphonehite"
         android:title="@string/callList"
+        android:visible="false"
+        yourapp:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/language"
+        android:icon="@mipmap/ic_menu"
+        android:title="@string/Language"
         yourapp:showAsAction="ifRoom"/>
 
 

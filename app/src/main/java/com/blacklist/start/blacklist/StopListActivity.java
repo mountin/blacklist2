@@ -230,6 +230,11 @@ public class StopListActivity extends ActionBarActivity {
         if(id == 16908332){
             finish();
         }
+        if (id == R.id.language) {
+            Intent intent = new Intent(this, LocalisationActivity.class);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.action_stoplist) {
             Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
             startActivity(intent);
