@@ -23,6 +23,8 @@
     <string name="SelectNumber">Select phone number, please!</string>
     <string name="SelectNumberError">Select correct phone number, please! (Example +12345678900)</string>
     <string name="Saved">Saved</string>
+    <string name="Save">Save</string>
+    <string name="SelectTime">Selected time </string>
     <string name="notSaved">Not Saved!</string>
     <string name="Cancel">Cancel!</string>
     <string name="Delete">Delete</string>
@@ -37,5 +39,7 @@
     <string name="days7">7 days</string>
     <string name="alltime">Forever</string>
     <string name="h1">1 hour</string>
-
+    <string name="DaysLeft"> days left</string>
+    <string name="HoursLeft"> hours left</string>
+    <string name="Forever"> forever!</string>
 </resources>

@@ -62,7 +62,7 @@ public class AddNumberActivity extends ActionBarActivity {
                     break;
             case R.id.radioButton3:
                 if (checked)
-                    AddNumberActivity.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 9999 * 24 * 3600); // for 30 days
+                    AddNumberActivity.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 9999 * 24 * 3600); // for 9999 days
                     blockTimeType = 2;
                     break;
         }
@@ -113,7 +113,7 @@ public class AddNumberActivity extends ActionBarActivity {
         Number.blockTimeType = AddNumberActivity.blockTimeType;
         Number.dateStart = String.valueOf((new Date().getTime() / 1000));
 
-        Log.d("asd", "Unix time is "+AddNumberActivity.unblockedUnixTime);
+        Log.d("asd", "Unix time is "+AddNumberActivity.unblockedUnixTime +" blockTimeType is "+ Number.blockTimeType);
 
 
         try{

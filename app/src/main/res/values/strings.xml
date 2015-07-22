@@ -1,24 +1,47 @@
 <resources>
     <string name="app_name">Jaqqa</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="myList1">My List</string>
-    <string name="myList2"><b>Stop List</b></string>
-    <string name="myCallList"><b>Call List</b></string>
-    <string name="add_number">Add new tumber</string>
+    <string name="hello_world">Вы выбрали Русский!!!</string>
+    <string name="action_settings">Насройки</string>
+    <string name="myList1">Мой список</string>
+    <string name="myList2"><b>Стоп лист</b></string>
+    <string name="myCallList"><b>Список звонков</b></string>
+    <string name="add_number">Добавить новый телефон</string>
     <string name="action_kitten">action_kitten</string>
-    <string name="newnumber">Add new number</string>
-    <string name="selectnumber">Choose your number:</string>
+    <string name="newnumber">Добавить новый номер</string>
+    <string name="selectnumber">Укажите новый номер:</string>
     <string name="timeblock">Укажите время для блокировки:</string>
     <string name="addnum">Добавить</string>
     <string name="addNumber">Добавить номер</string>
-    <string name="callList">Call list</string>
+    <string name="callList">Список звонков</string>
     <string name="delete_all_numbers">Удалить все номера</string>
-    <string name="emptyList">Стоп Лист пуст, добавте хотябы один</string>
-    <string name="stoplist">Cnjg List</string>
-    <string name="menu">Menu</string>
+    <string name="emptyList">Список пуст, добавьте хотябы один</string>
+    <string name="stoplist">Стоплист</string>
+    <string name="menu">Меню</string>
     <string name="SelecTime">Выберите время для блокировки</string>
-    <string name="Saved">Saved</string>
+    <string name="SelecedTime">Выбранное время: </string>
+    <string name="SelectNumber">Укажите пожалуйста номер телефона!</string>
+    <string name="SelectNumberError">Введите пожалуйста корректный номер телефона! (например +12345678900)</string>
+    <string name="Saved">Сохранено</string>
+    <string name="notSaved">Не сохранен!</string>
+    <string name="Save">Сохранить</string>
+    <string name="Cancel">Отмена!</string>
+    <string name="Delete">Удалить</string>
+    <string name="Add">Добавить</string>
+    <string name="SelectTime">Выбранное время </string>
+    <string name="SelectLanguage">Выберите язык</string>
+    <string-array name="Language">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+    <string name="h24">24 часа</string>
+    <string name="days7">7 дней</string>
+    <string name="alltime">Навсегда</string>
+    <string name="h1">1 час</string>
+    <string name="DaysLeft"> дней осталось</string>
+    <string name="HoursLeft"> часов осталось</string>
+    <string name="Forever"> навсегда</string>
+
+
 
 </resources>

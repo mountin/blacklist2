@@ -24,9 +24,11 @@
     <string name="SelectNumberError">Введите пожалуйста корректный номер телефона! (например +12345678900)</string>
     <string name="Saved">Сохранено</string>
     <string name="notSaved">Не сохранен!</string>
+    <string name="Save">Сохранить</string>
     <string name="Cancel">Отмена!</string>
     <string name="Delete">Удалить</string>
     <string name="Add">Добавить</string>
+    <string name="SelectTime">Выбранное время </string>
     <string name="SelectLanguage">Выберите язык</string>
     <string-array name="Language">
         <item>Русский</item>
@@ -36,6 +38,10 @@
     <string name="days7">7 дней</string>
     <string name="alltime">Навсегда</string>
     <string name="h1">1 час</string>
+    <string name="DaysLeft"> дней осталось</string>
+    <string name="HoursLeft"> часов осталось</string>
+    <string name="Forever"> навсегда</string>
+
 
 
 </resources>

@@ -72,19 +72,15 @@ public class StopListActivity extends ActionBarActivity {
             //Log.d("asd", this.callLogList.toString());
             boxAdapter = new BoxAdapter(this, StopListActivity.numbersFromStopList);
 
-
-
             listView.setAdapter(boxAdapter);
             listView.setOnItemClickListener(itemClickListener);
-
 
         } else {
             listView.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),
-                    "Список пуст, добавте хотя бы один номер!", Toast.LENGTH_SHORT).show();
+                    getString(R.string.emptyList), Toast.LENGTH_SHORT).show();
             //listView.setBackground(Drawable.createFromPath("@mipmap/ic_phone"));
         }
-
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
@@ -94,7 +90,8 @@ public class StopListActivity extends ActionBarActivity {
             StopListActivity.positionItem = position;
             StopListActivity.number = StopListActivity.numbersFromStopList.get(position);
             Log.d("asd", "Open Dialog blockTimeType=" + StopListActivity.number.blockTimeType);
-            Log.d("asd", "Selected position is =" + position);
+            Log.d("asd", "Selected position is =" + StopListActivity.number.blockTimeType + " number=" + StopListActivity.number.number);
+
             showDialog(2);
 
         }
@@ -103,11 +100,11 @@ public class StopListActivity extends ActionBarActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
-
+        Log.d("asd", "some id=" + id);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 //.setMessage("Add number to block list?")
-                .setTitle("Выберите время блокировки")
+                .setTitle(getString(R.string.SelecTime))
                 .setCancelable(true)
                 .setSingleChoiceItems(MainActivity.mChooseTime, StopListActivity.number.blockTimeType,
                         new DialogInterface.OnClickListener() {
@@ -120,13 +117,13 @@ public class StopListActivity extends ActionBarActivity {
                                 Log.d("asd", "New !!! selected position blockTimeType=" + StopListActivity.number.blockTimeType);
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        "Select a time: "
+                                        getString(R.string.SelectTime)+" "
                                                 + MainActivity.mChooseTime[item],
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
 
-                .setPositiveButton("Сохранить",
+                .setPositiveButton(getString(R.string.Save),
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog,
@@ -151,27 +148,24 @@ public class StopListActivity extends ActionBarActivity {
                                         currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 9999 * 24 * 3600); // for 30 days
                                         break;
                                     case 3:
-                                        AddNumberActivity.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 3600); // for 1 hour
-                                        Log.d("asd", "Saved blockTimeType: is: 1 hour case 3!!!");
-                                    break;
+                                        currFromArray.unblockedUnixTime = String.valueOf((d.getTime() / 1000) + 3600); // for 1 hour
+                                        break;
                                 }
 
-
-                                //currFromArray.blockTimeType = StopListActivity.timeBlock;
                                 Log.d("asd", "Saved blockTimeType: is:" + StopListActivity.number.blockTimeType);
 
                                 currFromArray.save();
 
-                                Toast.makeText(StopListActivity.this, "Сохранен номер " + currFromArray.number, Toast.LENGTH_LONG).show();
+                                Toast.makeText(StopListActivity.this, getString(R.string.Saved)+ " " + currFromArray.number, Toast.LENGTH_LONG).show();
 
                                 boxAdapter.notifyDataSetChanged();
                                 boxAdapter.notifyDataSetInvalidated();
 
                                 dialog.cancel();
-
+                                //removeDialog(2);
                             }
                         })
-                .setNegativeButton("Удалить",
+                .setNegativeButton(getString(R.string.Delete),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -180,16 +174,35 @@ public class StopListActivity extends ActionBarActivity {
 
                                 StopListActivity.numbersFromStopList.remove(StopListActivity.positionItem);
 
-                                Toast.makeText(StopListActivity.this, "Item has deleted!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(StopListActivity.this, getString(R.string.Delete), Toast.LENGTH_LONG).show();
 
                                 boxAdapter.notifyDataSetChanged();
 
                                 dialog.cancel();
+                                //removeDialog(2);
                             }
-                        });
+                        })
+                .setOnCancelListener(new Dialog.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        Log.d("asd", "This is Cancel");
+                        removeDialog(2);
+                    }
+                });
 
         return builder.create();
 
+    }
+
+
+    public void onDismiss()  {
+        Log.d("asd", "This is onDismiss");
+        removeDialog(2);
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog)
+    {
+        Log.d("asd", "this is onpreparedialog id= "+id);
     }
 
     @Override

@@ -78,13 +78,13 @@ public class BoxAdapter extends BaseAdapter {
 
             if (hoursLeft > 24 && hoursLeft < 720) {
 
-                setTime = hoursLeft / 24 + " дней осталось";
+                setTime = hoursLeft / 24 +" "+ ctx.getString(R.string.DaysLeft);
             } else if (hoursLeft >= 720) { //more than 30 days
-                setTime = " навсегда!";
-            } else if (hoursLeft < 24){
-                Log.d("asd", "Hours 0 Left="+hoursLeft);
-                hoursLeft = (hoursLeft < 0) ? 0 : hoursLeft; //set 0 if -
-                setTime = hoursLeft + " часов осталось";
+                setTime = " "+ctx.getString(R.string.Forever);
+            } else if (hoursLeft <= 24){
+                //Log.d("asd", "Hours 0 Left="+hoursLeft);
+                hoursLeft = (hoursLeft < 0) ? 0 : hoursLeft; //set 0 if
+                setTime = hoursLeft +" "+ ctx.getString(R.string.HoursLeft);
             }
         }
 
