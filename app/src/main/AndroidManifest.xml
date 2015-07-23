@@ -19,7 +19,7 @@
     <application
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
-        android:debuggable="true"
+        android:debuggable="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
 
@@ -69,8 +69,8 @@
 
         <!-- Notice this tag which provides the database name -->
         <meta-data
-            android:name="AA_DB_NAME"
-            android:value="MyDB.db" />
+            android:name="JaqqaDb"
+            android:value="JaqqaDb.db" />
 
         <!-- Notice this tag which provides the database version -->
         <meta-data
@@ -95,7 +95,6 @@
 
         <service android:name="com.cronService.BackgroundService" />
         <receiver android:name="com.cronService.AlarmReceiver"></receiver>
-
 
     </application>
 

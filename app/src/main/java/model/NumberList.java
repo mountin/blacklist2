@@ -35,6 +35,12 @@ public class NumberList extends Model implements Comparator, NumberListInterface
     public int status;
     @Column(name = "isActive")
     public int isActive;
+    @Column(name = "isShared")
+    public int isShared;
+    @Column(name = "sharedInfo")
+    public String sharedInfo;
+    @Column(name = "sharedDayTime")
+    public String sharedDayTime;
 
 
 

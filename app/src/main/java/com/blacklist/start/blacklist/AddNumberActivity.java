@@ -136,7 +136,7 @@ public class AddNumberActivity extends ActionBarActivity {
         }
 
 
-        Toast.makeText(this, getString(R.string.Saved) + this.phoneEditText, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.Saved) +" "+ this.phoneEditText, Toast.LENGTH_LONG).show();
 
         startActivity(intent);
     }
