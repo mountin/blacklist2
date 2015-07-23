@@ -26,70 +26,48 @@ public class IncomingCall extends BroadcastReceiver {
     private ITelephony telephonyService;
     static String IncommingNumber;
 
-    public boolean containsBlackListWithNumber(ArrayList<NumberList> paragems, String CompareNumber) {
-
-        for (NumberList p : paragems) {
-            if (p.number.equals(CompareNumber)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ArrayList selectListFromDb() {
-        ArrayList NumberList = new Select().from(model.NumberList.class).execute();
-
-        if (NumberList.size() != 0) {
-            return NumberList;
-        } else
-            return null;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
+        NumberList Number = new NumberList();
         //make silent
-
         String IncomedNumber = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         Log.d("onReceive", "  !!!!! Number detected: " + IncomedNumber);
 
-            if (this.containsBlackListWithNumber(this.selectListFromDb(), IncomedNumber) ) {
+        if (Number.containsBlackListWithNumber(Number.selectListFromDb(), IncomedNumber)) {
 
-                final AudioManager mode = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
-                mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+            final AudioManager mode = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
+            mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
-                Log.v(TAG, "Canceling....");
-                //this.deleteLastCallLog(context, IncomedNumber);
+            Log.v(TAG, "Canceling....");
+            //this.deleteLastCallLog(context, IncomedNumber);
 
-                TelephonyManager telephony = (TelephonyManager)
-                        context.getSystemService(Context.TELEPHONY_SERVICE);
-                try {
-                    Class c = Class.forName(telephony.getClass().getName());
-                    Method m = c.getDeclaredMethod("getITelephony");
-                    m.setAccessible(true);
-                    telephonyService = (ITelephony) m.invoke(telephony);
-                    //telephonyService.silenceRinger();
-                    telephonyService.endCall();
-                    Log.d("MyPhoneListener", "Call canceled !!!!!");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //set normal sound
-                mode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-            }else{
-                Log.d("myApp", "The number " + IncomingCall.IncommingNumber + " is NOT in list! :(");
+            TelephonyManager telephony = (TelephonyManager)
+                    context.getSystemService(Context.TELEPHONY_SERVICE);
+            try {
+                Class c = Class.forName(telephony.getClass().getName());
+                Method m = c.getDeclaredMethod("getITelephony");
+                m.setAccessible(true);
+                telephonyService = (ITelephony) m.invoke(telephony);
+                //telephonyService.silenceRinger();
+                telephonyService.endCall();
+                Log.d("MyPhoneListener", "Call canceled !!!!!");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-
+            //set normal sound
+            mode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        } else {
+            Log.d("myApp", "The number " + IncomingCall.IncommingNumber + " is NOT in list! :(");
+        }
 
     }
-
 
     public static void deleteLastCallLog(Context context, String phoneNumber) {
 
         try {
             Log.d("MyPhoneListener", "Start Deleting... !!!");
             //Thread.sleep(4000);
-            String strNumberOne[] = { phoneNumber };
+            String strNumberOne[] = {phoneNumber};
             Cursor cursor = context.getContentResolver().query(
                     CallLog.Calls.CONTENT_URI, null,
                     CallLog.Calls.NUMBER + " = ? ", strNumberOne, CallLog.Calls.DATE + " DESC");
@@ -99,7 +77,7 @@ public class IncomingCall extends BroadcastReceiver {
                 int foo = context.getContentResolver().delete(
                         CallLog.Calls.CONTENT_URI,
                         CallLog.Calls._ID + " = ? ",
-                        new String[] { String.valueOf(idOfRowToDelete) });
+                        new String[]{String.valueOf(idOfRowToDelete)});
                 Log.d("Phone Receive", "number is delited from LOG!!!....");
             }
         } catch (Exception ex) {

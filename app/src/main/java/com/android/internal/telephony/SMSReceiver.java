@@ -18,27 +18,10 @@ import model.NumberList;
  */
 public class SMSReceiver extends BroadcastReceiver
 {
-    public ArrayList selectListFromDb() {
-        ArrayList NumberList = new Select().from(model.NumberList.class).execute();
-
-        if (NumberList.size() != 0) {
-            return NumberList;
-        } else
-            return null;
-    }
-
-    public boolean containsBlackListWithNumber(ArrayList<NumberList> paragems, String CompareNumber) {
-
-        for (NumberList p : paragems) {
-            if (p.number.equals(CompareNumber)) {
-                return true;
-            }
-        }
-        return false;
-    }
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        NumberList Number = new NumberList();
         Bundle bundle = intent.getExtras();
         Object[] pdus = (Object[]) bundle.get("pdus");
 
@@ -51,7 +34,7 @@ public class SMSReceiver extends BroadcastReceiver
 
         String msg = "New SMS Event !!!!! Incomming Number : " + sms._sender;
         Log.d("myApp", msg);
-        if (this.containsBlackListWithNumber(this.selectListFromDb(), sms._sender)) {
+        if (Number.containsBlackListWithNumber(Number.selectListFromDb(), sms._sender)) {
             Log.d("myApp", "The message from" +sms._sender+ "has been blocked Sorry!!!");
             abortBroadcast();
         }else{

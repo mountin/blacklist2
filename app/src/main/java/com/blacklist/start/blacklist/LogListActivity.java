@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.activeandroid.query.Select;
+
 import java.util.ArrayList;
 
 import java.util.Collection;
@@ -34,14 +36,11 @@ import model.NumberListInterface;
 
 public class LogListActivity extends ActionBarActivity {
 
+    Dialog dialog;
     private static int positionItem;
     private static NumberList number;
-    Dialog dialog;
 
     private static int timeBlock;
-
-    public static String currentItem;
-    public static String selectedItem;
 
     private static final int CM_DELETE_ID = 1;
     public String[] catNamesArray = new String[]{};
@@ -88,7 +87,7 @@ public class LogListActivity extends ActionBarActivity {
 
             Log.d("asd", "U selected number  is =" + LogListActivity.number.number);
 
-            Toast.makeText(LogListActivity.this, getString(R.string.notSaved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+            //Toast.makeText(LogListActivity.this, getString(R.string.notSaved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
             showDialog(2);
 
@@ -110,16 +109,21 @@ public class LogListActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog,
                                                 int item) {
                                 LogListActivity.timeBlock = item;
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        getString(R.string.SelecedTime)
-                                                + MainActivity.mChooseTime[item],
-                                        Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),getString(R.string.SelecedTime)+ MainActivity.mChooseTime[item],Toast.LENGTH_SHORT).show();
                             }
                         })
 
                 .setPositiveButton(getString(R.string.Add),
                         new DialogInterface.OnClickListener() {
+
+                            private ArrayList<NumberList> selectListFromDb() {
+                                ArrayList NumberList = new Select().from(model.NumberList.class).execute();
+
+                                if (NumberList.size() != 0) {
+                                    return NumberList;
+                                } else
+                                    return null;
+                            }
 
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -148,15 +152,18 @@ public class LogListActivity extends ActionBarActivity {
                                 Log.d("asd", "time=" + LogListActivity.number.dateStart);
 
                                 LogListActivity.number.status = LogListActivity.timeBlock;
-                                LogListActivity.number.save();
-
-                                Toast.makeText(LogListActivity.this, getString(R.string.Saved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
 
 
-                                Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
-                                startActivity(intent);
+                                if (LogListActivity.number.containsBlackListWithNumber(LogListActivity.number.selectListFromDb(), LogListActivity.number.number) ) {
+                                    Toast.makeText(LogListActivity.this, getString(R.string.AlreadyExistedNumber) +""+ LogListActivity.number.number, Toast.LENGTH_LONG).show();
+                                    dialog.cancel();
+                                }else{
+                                    LogListActivity.number.save();
+                                    Toast.makeText(LogListActivity.this, getString(R.string.Saved) + LogListActivity.number.number, Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(LogListActivity.this, StopListActivity.class);
+                                    startActivity(intent);
+                                }
 
-                                dialog.cancel();
 
                             }
                         })
@@ -194,6 +201,15 @@ public class LogListActivity extends ActionBarActivity {
 
         showDialog(2);
 
+    }
+
+    public static ArrayList selectListFromDb() {
+        ArrayList NumberList = new Select().from(model.NumberList.class).orderBy("dateStart DESC").execute();
+
+        if (NumberList.size() != 0) {
+            return NumberList;
+        } else
+            return null;
     }
 
     public void onSettingsMenuClick(MenuItem item) {

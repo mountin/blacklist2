@@ -11,6 +11,7 @@
     <string name="newnumber">Add new number</string>
     <string name="selectnumber">Choose your number:</string>
     <string name="timeblock">Select time for blocking:</string>
+    <string name="AlreadyExistedNumber">This number has already used:</string>
     <string name="addnum">Add</string>
     <string name="addNumber">Add number</string>
     <string name="callList">Call list</string>
@@ -29,6 +30,7 @@
     <string name="notSaved">Not Saved!</string>
     <string name="Cancel">Cancel!</string>
     <string name="Delete">Delete</string>
+    <string name="Deleted">Deleted</string>
     <string name="Add">Add</string>
     <string name="SelectLanguage">Select Language</string>
 

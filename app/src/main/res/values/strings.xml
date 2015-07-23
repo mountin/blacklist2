@@ -11,8 +11,9 @@
     <string name="newnumber">Добавить новый номер</string>
     <string name="selectnumber">Укажите новый номер:</string>
     <string name="timeblock">Укажите время для блокировки:</string>
+    <string name="AlreadyExistedNumber">Этот номер уже существует:</string>
     <string name="addnum">Добавить</string>
-    <string name="addNumber">Добавить номер2</string>
+    <string name="addNumber">Добавить номер</string>
     <string name="callList">Список звонков</string>
     <string name="delete_all_numbers">Удалить все номера</string>
     <string name="emptyList">Список пуст, добавьте хотябы один</string>
@@ -28,6 +29,7 @@
     <string name="Save">Сохранить</string>
     <string name="Cancel">Отмена!</string>
     <string name="Delete">Удалить</string>
+    <string name="Deleted">Удалено</string>
     <string name="Add">Добавить</string>
     <string name="SelectTime">Выбранное время </string>
     <string name="SelectLanguage">Выберите язык</string>

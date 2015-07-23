@@ -7,7 +7,9 @@ import android.util.Log;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -65,6 +67,28 @@ public class NumberList extends Model implements Comparator, NumberListInterface
         }
 
         return 0;
+    }
+
+    public boolean containsBlackListWithNumber(ArrayList<NumberList> paragems, String CompareNumber) {
+        if(paragems == null){
+            return false;
+        }
+
+        for (NumberList p : paragems) {
+            if (p.number.equals(CompareNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList selectListFromDb() {
+        ArrayList NumberList = new Select().from(model.NumberList.class).execute();
+
+        if (NumberList.size() != 0) {
+            return NumberList;
+        } else
+            return null;
     }
 }
 

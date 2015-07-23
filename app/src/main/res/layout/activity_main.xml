@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/addNumber"
-
+            android:textAllCaps="false"
             android:longClickable="true"
             android:onClick="onClick2"
             android:clickable="true"
             android:textColor="@color/textColorWhite"
             android:background="@mipmap/ic_buttonadd"
-            android:capitalize="none"
+
             android:layout_gravity="bottom|center_vertical"
             android:maxWidth="56dp"
             android:minWidth="56dp"
@@ -43,11 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/myList2"
+            android:textAllCaps="false"
             android:textColor="@color/textColorWhite"
             android:clickable="true"
             android:onClick="onClick"
             android:background="@mipmap/ic_button_share"
-            android:capitalize="none"
+
             android:layout_gravity="bottom|center_vertical"
 
             android:maxWidth="56dp"

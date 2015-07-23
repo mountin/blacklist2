@@ -76,7 +76,7 @@ public class AddNumberActivity extends ActionBarActivity {
         Log.d("asd", "Selected time is " + AddNumberActivity.unblockedUnixTime);
     }
 
-    public boolean validator(){
+    public boolean validator(NumberList Number){
         if(AddNumberActivity.unblockedUnixTime == null){
 
             Toast.makeText(this, getString(R.string.SelecTime), Toast.LENGTH_LONG).show();
@@ -100,17 +100,23 @@ public class AddNumberActivity extends ActionBarActivity {
             return false;
         }
 
+        if(Number.containsBlackListWithNumber(Number.selectListFromDb(), this.phoneEditText)){
+            Toast.makeText(this, getString(R.string.AlreadyExistedNumber) +" "+ this.phoneEditText, Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return  true;
     }
     public void onClick(View view) {
-        if(!this.validator()){
+        NumberList Number = new NumberList();
+
+        if(!this.validator(Number)){
             return;
         }
 
         Intent intent = new Intent(AddNumberActivity.this, StopListActivity.class);
 
-        NumberList Number = new NumberList();
+
 
         Number.unblockedUnixTime = AddNumberActivity.unblockedUnixTime;
 

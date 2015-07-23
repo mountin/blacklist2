@@ -39,16 +39,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         mChooseTime = new String[] {getString(R.string.h24), getString(R.string.days7), getString(R.string.alltime), getString(R.string.h1)};
 
+        //System.out.println("My locale::"+Locale.getDefault().getLanguage());
+
         //Get Preferenece localisation
         SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences(SPLANG, Context.MODE_PRIVATE);
-        String localisatFromShare = sharedpreferences.getString("local", "");
+        String localisatFromShare = sharedpreferences.getString(SPLANG, "");
         Log.d("asd", "localisation=" + localisatFromShare);
 
 
-        //SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences("local", Context.MODE_PRIVATE);
-
-        String editor2 = sharedpreferences.getString(SPLANG, "");
-        Log.d("asd", "sharedData editor2=" + editor2);
 
         if(localisatFromShare.isEmpty()){
 
@@ -77,7 +75,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_menu, menu);
         return super.onCreateOptionsMenu(menu);

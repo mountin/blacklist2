@@ -38,18 +38,9 @@ public class StopListActivity extends ActionBarActivity {
     public String[] catNamesArray = new String[]{};
 
     private ArrayAdapter<String> mAdapter;
-    private static ArrayList<NumberList> numbersFromStopList;
+    public static ArrayList<NumberList> numbersFromStopList;
 
     BoxAdapter boxAdapter;
-
-    public ArrayList selectListFromDb() {
-        ArrayList NumberList = new Select().from(model.NumberList.class).orderBy("dateStart DESC").execute();
-
-        if (NumberList.size() != 0) {
-            return NumberList;
-        } else
-            return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +52,11 @@ public class StopListActivity extends ActionBarActivity {
 
         ListView listView = (ListView) findViewById(R.id.stop_list);
 
+        NumberList numInstance = new NumberList();
 
-        StopListActivity.numbersFromStopList = this.selectListFromDb();
+        StopListActivity.numbersFromStopList = numInstance.selectListFromDb();
         if (StopListActivity.numbersFromStopList != null) {
 
-            //Log.d("asd", StopListActivity.catNamesList.toString());
-            //listView.setVisibility(View.VISIBLE);
-
-            //Collections.reverse(StopListActivity.numbersFromStopList);
-            //Log.d("asd", this.callLogList.toString());
             boxAdapter = new BoxAdapter(this, StopListActivity.numbersFromStopList);
 
             listView.setAdapter(boxAdapter);
@@ -115,11 +102,7 @@ public class StopListActivity extends ActionBarActivity {
                                 StopListActivity.timeBlock = item;
                                 StopListActivity.number.blockTimeType = item;
                                 Log.d("asd", "New !!! selected position blockTimeType=" + StopListActivity.number.blockTimeType);
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        getString(R.string.SelectTime)+" "
-                                                + MainActivity.mChooseTime[item],
-                                        Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),getString(R.string.SelectTime)+" "+ MainActivity.mChooseTime[item], Toast.LENGTH_SHORT).show();
                             }
                         })
 
@@ -174,7 +157,7 @@ public class StopListActivity extends ActionBarActivity {
 
                                 StopListActivity.numbersFromStopList.remove(StopListActivity.positionItem);
 
-                                Toast.makeText(StopListActivity.this, getString(R.string.Delete), Toast.LENGTH_LONG).show();
+                                Toast.makeText(StopListActivity.this, getString(R.string.Deleted), Toast.LENGTH_LONG).show();
 
                                 boxAdapter.notifyDataSetChanged();
 

@@ -4,18 +4,11 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:layout_width="188dp"
-        android:layout_height="18dp"
-        android:text="@string/newnumber"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:textSize="@dimen/activity_vertical_margin" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/selectFromCallLog"
+        android:textAllCaps="false"
         android:id="@+id/selectFromCallLog"
         android:background="@mipmap/ic_buttonbuy"
         android:textColor="@color/textColorWhite"
@@ -29,6 +22,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/selectnumber"
+        android:textAllCaps="false"
         android:id="@+id/textView3"
         android:layout_marginTop="20dp"
         android:textSize="@dimen/activity_vertical_margin" />
@@ -88,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addnum"
+        android:textAllCaps="false"
         android:id="@+id/button3"
         android:background="@mipmap/ic_buttonbuy"
         android:textColor="@color/textColorWhite"
