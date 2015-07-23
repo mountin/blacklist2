@@ -55,7 +55,6 @@ public class MainActivity extends ActionBarActivity {
                 Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
                 startActivity(intent);
                 //finish();
-
         }
 
         //startService(new Intent(this, CheckService.class));

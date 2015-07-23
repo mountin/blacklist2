@@ -7,13 +7,16 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -22,6 +25,7 @@ import java.util.Locale;
 public class LocalisationActivity extends ActionBarActivity {
     private Locale locale = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +33,76 @@ public class LocalisationActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //startService(new Intent(this, CheckService.class));
         setContentView(R.layout.activity_localisation);
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+
+        //String strChoose = spinner.getSelectedItem().toString();
+        //tv.setText(strChoose);
+
+        //Log.d("asd", "selected=" + strChoose );
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+
+                String[] choose = getResources().getStringArray(R.array.Language);
+                String lang;
+                switch (selectedItemPosition) {
+                    case 0:
+                        lang = "ru";
+                        break;
+                    case 1:
+                        lang = "en";
+                        break;
+                    default:
+                        lang = "en";
+                }
+
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ваш выбор: " + lang, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+//        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                String lang;
+//                switch (position) {
+//                    case 0:
+//                        lang = "ru";
+//                        break;
+//                    case 1:
+//                        lang = "en";
+//                        break;
+//                    default:
+//                        lang = "en";
+//                }
+//                Log.d("asd", "Saved lang=" + lang);
+//                Log.d("asd", "setOnItemSelectedListener");
+//
+//
+//                changeLang(lang);
+//                Log.d("asd", "selected=" + selectedItemView + " position=" + position);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Log.d("asd", "onNothingSelected");
+//            }
+//        });
+
+
     }
 
     public void changeLangRus(View view){
@@ -39,6 +111,13 @@ public class LocalisationActivity extends ActionBarActivity {
     public void changeLangEng(View view){
         changeLang("en");
     }
+
+    public void changeLangFromSelect(int position) {
+
+
+        //changeLang(lang);
+    }
+
     public void changeLang(String lang){
 
         Configuration config = getBaseContext().getResources().getConfiguration();
@@ -88,3 +167,5 @@ public class LocalisationActivity extends ActionBarActivity {
 
 
 }
+
+
