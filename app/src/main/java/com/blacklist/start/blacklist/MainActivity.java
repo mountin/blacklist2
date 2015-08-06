@@ -17,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.cronService.AlarmReceiver;
 
 import java.util.Locale;
 
+import model.GeneralBlackList;
 import model.NumberList;
+import model.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -73,6 +76,15 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+//    protected void initializeDB() {
+//        Configuration.Builder configurationBuilder = new Configuration.Builder(this);
+//        configurationBuilder.addModelClasses(NumberList.class);
+//        configurationBuilder.addModelClasses(User.class);
+//        configurationBuilder.addModelClasses(GeneralBlackList.class);
+//
+//
+//        ActiveAndroid.initialize(configurationBuilder.create());
+//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

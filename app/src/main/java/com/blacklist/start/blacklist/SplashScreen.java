@@ -2,8 +2,16 @@ package com.blacklist.start.blacklist;
 
 import android.app.Activity;
 import android.content.Intent;
+
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MotionEvent;
+
+import com.activeandroid.ActiveAndroid;
+
+import model.GeneralBlackList;
+import model.NumberList;
+import model.User;
 
 /**
  * Created by User on 08.07.2015.
@@ -20,6 +28,7 @@ public class SplashScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //initializeDB();
         setContentView(R.layout.splash);
 
         final SplashScreen sPlashScreen = this;

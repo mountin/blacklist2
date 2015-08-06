@@ -44,6 +44,7 @@
     <string name="h1">1 hour</string>
     <string name="DaysLeft"> days left</string>
     <string name="HoursLeft"> hours left</string>
+    <string name="MinutesLeft"> minutes left</string>
     <string name="Forever"> forever!</string>
     <string name="Language">Change Language</string>
 </resources>

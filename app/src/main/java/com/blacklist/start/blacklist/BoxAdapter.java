@@ -76,15 +76,20 @@ public class BoxAdapter extends BaseAdapter {
         if (p.unblockedUnixTime != null) {
             Integer hoursLeft = Integer.parseInt(String.valueOf((Long.parseLong(p.unblockedUnixTime) - (d.getTime() / 1000)) / 3600)); //hours left
 
+
             if (hoursLeft > 24 && hoursLeft < 720) {
 
                 setTime = hoursLeft / 24 +" "+ ctx.getString(R.string.DaysLeft);
             } else if (hoursLeft >= 720) { //more than 30 days
                 setTime = " "+ctx.getString(R.string.Forever);
             } else if (hoursLeft <= 24){
-                //Log.d("asd", "Hours 0 Left="+hoursLeft);
-                hoursLeft = (hoursLeft < 0) ? 0 : hoursLeft; //set 0 if
-                setTime = hoursLeft +" "+ ctx.getString(R.string.HoursLeft);
+                Integer MinutesLeft = Integer.parseInt(String.valueOf((Long.parseLong(p.unblockedUnixTime) - (d.getTime() / 1000)) / 60)); //mins left
+
+                String timeString = (hoursLeft == 0) ? ctx.getString(R.string.MinutesLeft):ctx.getString(R.string.HoursLeft);
+
+                hoursLeft = (hoursLeft == 0) ? MinutesLeft : hoursLeft; //set 0 if
+                setTime = hoursLeft +" "+ timeString;
+                Log.d("asdd", "Hours 0 Left="+hoursLeft);
             }
         }
 

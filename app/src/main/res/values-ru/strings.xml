@@ -42,6 +42,7 @@
     <string name="h1">1 час</string>
     <string name="DaysLeft"> дней осталось</string>
     <string name="HoursLeft"> часов осталось</string>
+    <string name="MinutesLeft"> минут осталось</string>
     <string name="Forever"> навсегда</string>
     <string name="Language">Изменить язык</string>
 
