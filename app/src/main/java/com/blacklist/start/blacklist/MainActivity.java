@@ -17,15 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.cronService.AlarmReceiver;
 
 import java.util.Locale;
 
-import model.GeneralBlackList;
 import model.NumberList;
-import model.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -76,15 +73,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-//    protected void initializeDB() {
-//        Configuration.Builder configurationBuilder = new Configuration.Builder(this);
-//        configurationBuilder.addModelClasses(NumberList.class);
-//        configurationBuilder.addModelClasses(User.class);
-//        configurationBuilder.addModelClasses(GeneralBlackList.class);
-//
-//
-//        ActiveAndroid.initialize(configurationBuilder.create());
-//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -92,15 +80,17 @@ public class MainActivity extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_stoplist) {
-            Intent intent = new Intent(MainActivity.this, StopListActivity.class);
+        if (id == R.id.action_settings) {
+            this.openOptionsMenu();
 
-            startActivity(intent);
-            Log.d("asd", "clicked Search1");
+            Toast.makeText(this,"openOptionsMenu()!",Toast.LENGTH_LONG).show();
+
             return true;
         }
 

@@ -45,7 +45,9 @@
     <string name="MinutesLeft"> минут осталось</string>
     <string name="Forever"> навсегда</string>
     <string name="Language">Изменить язык</string>
-
+    <string name="Feedback">Ваши пожелания</string>
+    <string name="Contact_us">Контакты</string>
+    <string name="Continue">Продолжить</string>
 
 
 </resources>

@@ -87,7 +87,7 @@ public class BoxAdapterLogList extends BaseAdapter {
         ((TextView) view.findViewById(R.id.tvUnix)).setText(date);
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
 
-        Log.d("asd", "!!!=position=box=" + position);
+        //Log.d("asd", "!!!=position=box=" + position);
 
         return view;
     }

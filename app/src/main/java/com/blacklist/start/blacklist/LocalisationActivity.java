@@ -88,6 +88,10 @@ public class LocalisationActivity extends ActionBarActivity {
 
     }
 
+    public void onClick4(View v){
+        finish();
+    }
+
     public void changeLangRus(View view) {
         changeLang("ru");
     }

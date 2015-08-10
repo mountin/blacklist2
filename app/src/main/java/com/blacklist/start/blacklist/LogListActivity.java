@@ -269,10 +269,9 @@ public class LogListActivity extends ActionBarActivity {
                     break;
             }
             Message message = new Message();
-            //message.messageNumber = phNumber;
 
             if(name != null){ //added name to messageNumber as integration excaption
-                Log.d("name1", name);
+                //Log.d("name1", name);
                 message.messageNumber = name;
             }
             message.number = phNumber;

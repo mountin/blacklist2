@@ -47,4 +47,7 @@
     <string name="MinutesLeft"> minutes left</string>
     <string name="Forever"> forever!</string>
     <string name="Language">Change Language</string>
+    <string name="Feedback">Feedback</string>
+    <string name="Contact_us">Contact us</string>
+    <string name="Continue">Continue</string>
 </resources>
