@@ -247,6 +247,7 @@ public class LogListActivity extends ActionBarActivity {
         int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
         int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
         while (managedCursor.moveToNext()) {
+            String name = managedCursor.getString(managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME ));
             String phNumber = managedCursor.getString(number);
             String callType = managedCursor.getString(type1);
             String callDate = managedCursor.getString(date);
@@ -268,7 +269,12 @@ public class LogListActivity extends ActionBarActivity {
                     break;
             }
             Message message = new Message();
-            message.messageNumber = phNumber;
+            //message.messageNumber = phNumber;
+
+            if(name != null){ //added name to messageNumber as integration excaption
+                Log.d("name1", name);
+                message.messageNumber = name;
+            }
             message.number = phNumber;
             message.messageContent = dir;
             message.messageDate = callDayTime;

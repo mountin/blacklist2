@@ -15,8 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 
     <application
@@ -74,10 +73,6 @@
         <meta-data
             android:name="JaqqaDb"
             android:value="JaqqaDb.db" />
-
-        <meta-data
-            android:name="AA_MODELS"
-            android:value="model.NumberList,model.User"/>
 
         <!-- Notice this tag which provides the database version -->
         <meta-data

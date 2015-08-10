@@ -81,7 +81,9 @@ public class BoxAdapterLogList extends BaseAdapter {
         }
         String date = dateFormat.format(p.messageDate);
 
-        ((TextView) view.findViewById(R.id.tvNumber)).setText(p.number);
+        String contactInfo = (p.messageNumber != null)?p.messageNumber:p.number;
+
+        ((TextView) view.findViewById(R.id.tvNumber)).setText(contactInfo);
         ((TextView) view.findViewById(R.id.tvUnix)).setText(date);
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
 
