@@ -22,7 +22,7 @@ import model.NumberList;
 /**
  * Created by mountin on 10.06.2015.
  */
-public class AddNumberActivity extends ActionBarActivity {
+public class AddNumberActivity extends BaseActivity {
 
     static public String unblockedUnixTime;
     static public int blockTimeType;
@@ -128,34 +128,15 @@ public class AddNumberActivity extends ActionBarActivity {
 
         Log.d("asd", "Unix time is "+AddNumberActivity.unblockedUnixTime +" blockTimeType is "+ Number.blockTimeType);
 
-
         try{
             Number.save();
         }catch (Exception e){
             Log.d("asd", e.toString());
         }
 
-
         Toast.makeText(this, getString(R.string.Saved) +" "+ this.phoneEditText, Toast.LENGTH_LONG).show();
 
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_menu, menu);
-
-        MenuItem blockListItem = menu.findItem(R.id.action_compose);
-        blockListItem.setVisible(false);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public void onSettingsMenuClick(MenuItem item) {
-        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-        infoTextView.setText("Вы выбрали пункт Settings");
     }
 
     @Override

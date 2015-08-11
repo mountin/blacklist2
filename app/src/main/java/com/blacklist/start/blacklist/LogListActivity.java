@@ -179,13 +179,6 @@ public class LogListActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, CM_DELETE_ID, 0, getString(R.string.Delete));
-    }
-
     //@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         //super.onListItemClick(l, v, position, id);
@@ -212,10 +205,7 @@ public class LogListActivity extends ActionBarActivity {
             return null;
     }
 
-    public void onSettingsMenuClick(MenuItem item) {
-//        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-//        infoTextView.setText("Вы выбрали пункт Settings");
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -6,14 +6,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,8 +26,7 @@ import java.util.Locale;
 
 import model.NumberList;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
 
     private MainActivity context;
     final public static int CHECKTIMER = 60000;//1 min
@@ -39,13 +40,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         mChooseTime = new String[] {getString(R.string.h24), getString(R.string.days7), getString(R.string.alltime), getString(R.string.h1)};
 
-        //System.out.println("My locale::"+Locale.getDefault().getLanguage());
-
         //Get Preferenece localisation
         SharedPreferences sharedpreferences = getBaseContext().getSharedPreferences(SPLANG, Context.MODE_PRIVATE);
         String localisatFromShare = sharedpreferences.getString(SPLANG, "");
         Log.d("asd", "localisation=" + localisatFromShare);
-
 
 
         if(localisatFromShare.isEmpty()){
@@ -74,50 +72,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+    public void onResume() {
+        super.onResume();
 
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            this.openOptionsMenu();
-
-            Toast.makeText(this,"openOptionsMenu()!",Toast.LENGTH_LONG).show();
-
-            return true;
-        }
-
-        if (id == R.id.callList) {
-            Intent intent = new Intent(MainActivity.this, LogListActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        if (id == R.id.language) {
-            Intent intent = new Intent(MainActivity.this, LocalisationActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        if (id == R.id.action_compose) {
-            Intent intent = new Intent(MainActivity.this, AddNumberActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_delete_all) {
-            this.clearTable();
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void clearTable() {

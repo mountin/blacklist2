@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_stoplist"
+    <item
+        android:id="@+id/action_stoplist"
         android:icon="@mipmap/ic_stoplist"
         android:title="@string/stoplist"
-        android:visible="false"
         android:visibility="invisible"
-        yourapp:showAsAction="ifRoom"/>
+        android:visible="false"
+        yourapp:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_compose"
+    <item
+        android:id="@+id/action_compose"
         android:icon="@mipmap/ic_add_selected"
         android:title="@string/newnumber"
-        android:visible="false"
         android:visibility="invisible"
-        yourapp:showAsAction="ifRoom"/>
+        android:visible="false"
+        yourapp:showAsAction="ifRoom" />
 
-    <item android:id="@+id/callList"
+    <item
+        android:id="@+id/callList"
         android:icon="@mipmap/ic_cellphonehite"
         android:title="@string/callList"
-        android:visible="false"
         android:visibility="invisible"
-        yourapp:showAsAction="ifRoom"/>
+        android:visible="false"
+        yourapp:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
-        android:title="@string/action_settings"
         android:orderInCategory="100"
-        yourapp:showAsAction="never" />
-
-    <item android:id="@+id/language"
         android:icon="@mipmap/ic_menu"
-        android:title="@string/Language"
-        yourapp:showAsAction="ifRoom"/>
+        android:title="@string/action_settings"
+        yourapp:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/language"
+                android:orderInCategory="0"
+                android:title="@string/Language"
+                yourapp:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/feedback"
-        android:orderInCategory="1"
-        yourapp:showAsAction="never"
-        android:title="@string/Feedback" />
+            <item
+                android:id="@+id/feedback"
+                android:orderInCategory="1"
+                android:title="@string/Feedback"
+                yourapp:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/contact_us"
-        android:orderInCategory="2"
-        yourapp:showAsAction="never"
-        android:title="@string/Contact_us" />
-
+            <item
+                android:id="@+id/contact_us"
+                android:orderInCategory="2"
+                android:title="@string/Contact_us"
+                yourapp:showAsAction="ifRoom" />
+        </menu>
+    </item>
 
 </menu>

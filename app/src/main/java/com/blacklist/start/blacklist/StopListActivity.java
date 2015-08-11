@@ -4,24 +4,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -30,7 +26,7 @@ import android.util.Log;
 import model.NumberList;
 
 
-public class StopListActivity extends ActionBarActivity {
+public class StopListActivity extends BaseActivity {
 
     private static int positionItem;
     private static int timeBlock;
@@ -188,56 +184,5 @@ public class StopListActivity extends ActionBarActivity {
         Log.d("asd", "this is onpreparedialog id= "+id);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_menu, menu);
-
-        MenuItem blockListItem = menu.findItem(R.id.action_stoplist);
-        blockListItem.setVisible(false);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public void onSettingsMenuClick(MenuItem item) {
-        TextView infoTextView = (TextView) findViewById(R.id.textViewInfo);
-        infoTextView.setText("Вы выбрали пункт Settings");
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("asd", "Clicked="+item.getItemId());
-        int id = item.getItemId();
-
-        //home = 16908332
-        if(id == 16908332){
-            finish();
-        }
-        if (id == R.id.language) {
-            Intent intent = new Intent(this, LocalisationActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_stoplist) {
-            Intent intent = new Intent(StopListActivity.this, StopListActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.callList) {
-            Intent intent = new Intent(StopListActivity.this, LogListActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_compose) {
-            Intent intent = new Intent(StopListActivity.this, AddNumberActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_delete_all) {
-            //this.clearTable();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 }
